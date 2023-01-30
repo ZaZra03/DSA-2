@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-//Main class that implements a menu-driven hash table program.
+// Main class that implements a menu-driven hash table program.
 public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		// Initialize hash table with size 20.
