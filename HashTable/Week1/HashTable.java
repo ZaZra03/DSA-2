@@ -1,10 +1,7 @@
-package Week1;
-
 public class HashTable {
     private String[] hashTable;
     private int size;
-
-
+	
     public HashTable(int size) {
         this.size = size;
         this.hashTable = new String[size];
@@ -83,6 +80,7 @@ public class HashTable {
 					System.out.println("Error: Key not found.");
 					break;
 				} else if(hashTable[index] == Integer.toString(key)) {
+					System.out.println("Key deleted.");
 					hashTable[index] = null;
 				}
 			}
@@ -90,4 +88,3 @@ public class HashTable {
 
 	}
 }
-
