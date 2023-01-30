@@ -56,7 +56,7 @@ public class HashTable {
 				if (index == temp) {
 					System.out.println("Error: Key not found.");
 					break;
-				} else if(hashTable[index] == Integer.toString(key)) {
+				} else if(Integer.parseInt(hashTable[index]) == key) {
 					System.out.println("\nKey found...");
 					System.out.println("Key: " + hashTable[index]);
 					System.out.println("Key's Index: " + index);
