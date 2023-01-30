@@ -79,7 +79,7 @@ public class HashTable {
 				if (index == temp) {
 					System.out.println("Error: Key not found.");
 					break;
-				} else if(hashTable[index] == Integer.toString(key)) {
+				} else if(Integer.parseInt(hashTable[index]) == key) {
 					System.out.println("Key deleted.");
 					hashTable[index] = null;
 				}
