@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class HashTable {
 	// Class fields
@@ -30,25 +28,27 @@ public class HashTable {
 	 * @param key the key to be inserted into the table.
 	 */
 	public void AddNewKey(int key) {
-		// Calculate index using hash function.
 		int index = hashFunction(key);
 		int temp = hashFunction(key);
 
 		// Use linear probing to handle collision.
 		while (hashTable[index] != null) {
+			if (Integer.parseInt(hashTable[index]) == key) {
+				System.out.println("\nKey already exists in the hash table.");
+				return;
+			}
 			index = (index + 1) % size;
 
 			// Check if the hash table is full.
 			if (index == temp) {
-				System.out.println("Error: Hash table is full.");
-				break;
+				System.out.println("\nHash table is full.");
+				return;
 			}
 		}
+
 		// Insert key into hash table if index is empty.
-		if (hashTable[index] == null) {
-			hashTable[index] = Integer.toString(key);
-			System.out.println("Key inserted at index " + index);
-		}
+		hashTable[index] = Integer.toString(key);
+		System.out.println("\nKey inserted at index " + index);
 	}
 
 	/**
@@ -68,27 +68,22 @@ public class HashTable {
 	public void Search(int key) {
 		int index = hashFunction(key);
 		int temp = index;
-		List<Integer> indices = new ArrayList<>();
 
-		// Loop to find all indices of the key in hash table.
+		// Loop until an empty cell is found.
 		while (hashTable[index] != null) {
 			if (Integer.parseInt(hashTable[index]) == key) {
-				indices.add(index);
+				System.out.println("\nKey found: " + hashTable[index] + " at index " + index);
+				return; // Key has been found.
 			}
+
+			// Compute the next index.
 			index = (index + 1) % size;
 			if (index == temp) {
-				break;
+				System.out.println("\nKey not found.");
+				return; // Key has not been found.
 			}
 		}
-
-		// If the key is not found.
-		if (indices.isEmpty()) {
-			System.out.println("Error: Key not found.");
-		} else { // Key is found.
-			System.out.println("\nKey found...");
-			System.out.println("Key: " + key);
-			System.out.println("Key's Indices: " + indices);
-		}
+		System.out.println("\nKey not found.");
 	}
 
 	/**
@@ -99,30 +94,20 @@ public class HashTable {
 	public void Delete(int key) {
 		int index = hashFunction(key);
 		int temp = index;
-		List<Integer> indices = new ArrayList<>();
 
-		// Find all indices with the same key.
+		// Loop until an empty cell is found.
 		while (hashTable[index] != null) {
 			if (Integer.parseInt(hashTable[index]) == key) {
-				indices.add(index);
+				System.out.println("\nDeleted key " + key + " at index " + index + ".");
+				hashTable[index] = null;
+				return; // Key is found and deleted from the table.
 			}
 			index = (index + 1) % size;
 			if (index == temp) {
-				break;
+				System.out.println("\nKey " + key + " not found.");
+				return; // Key is not found.
 			}
 		}
-
-		// Key not found.
-		if (indices.isEmpty()) {
-			System.out.println("Error: Key not found.");
-			return;
-		}
-
-		// Delete key at each index.
-		for (int i : indices) {
-			hashTable[i] = null;
-		}
-
-		System.out.println("\nKey deleted from indices " + indices.toString());
+		System.out.println("\nKey " + key + " not found.");
 	}
 }
