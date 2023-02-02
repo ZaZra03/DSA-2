@@ -62,6 +62,8 @@ public class HashTable {
 				System.out.println("\nKey already exists in the hash table.");
 				return;
 			}
+			
+			// Compute the next index.
 			index = (index + 1) % size;
 
 			// Check if the hash table is full.
@@ -108,6 +110,8 @@ public class HashTable {
 
 			// Compute the next index.
 			index = (index + 1) % size;
+			
+			//Break Point.
 			if (index == temp) {
 				System.out.println("\nKey not found.");
 				return; // Key has not been found.
@@ -138,7 +142,11 @@ public class HashTable {
 				hashTable[index] = null;
 				return; // Key is found and deleted from the table.
 			}
+			
+			// Compute the next index.
 			index = (index + 1) % size;
+			
+			//Break Point.
 			if (index == temp) {
 				System.out.println("\nKey " + key + " not found.");
 				return; // Key is not found.
