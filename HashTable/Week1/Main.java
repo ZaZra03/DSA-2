@@ -1,9 +1,51 @@
+/**
+ * Hash Table Menu-Driven Program
+ * This program implements a program that perform the given hash table
+ * operations such as Add New Key, Display, Search, and Delete Key.
+ * 
+ * The user can perform 5 operations in the menu-driven program and these are the following:
+ * 
+ * Add New Key - Inserts a new key (a positive integer value) into the hash table. The hash is
+ * computed using the hash function h(k) = k mod 20. The computed hash is displayed before
+ * inserting the key to the hash table. Perform linear probing to resolve collision and display 
+ * the new index assigned to the key. If the hash table is full, do not insert the new key and
+ * display an error message.
+ * 
+ * Display Hash Table - Displays the hash table to the screen. All indices must be displayed
+ * with or without keys assigned to it.
+ * 
+ * Search - Accepts a key and determines whether or not the key is present in the hash table. If
+ * found, the index of the key must also be displayed.
+ * 
+ * Delete - Accepts a key and determines whether or not the key is present in the hash table. If
+ * found, remove the key from the hash table.
+ *
+ * Exit - This simply exits the program.
+ *
+ * @class Main
+ * 
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Hans Neil Emnacin
+ * @author Marc Ryzon Elomina
+ * @author Mark Cedrick De Vera
+ * @author Rizaldy Cantalejo
+ * @see HashTable
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-// Main class to implement menu-driven hash table program.
 public class Main {
+	/** 
+	 * This is the main method which makes use of displaying the menu 
+	 * and calling the methods in the HashTable class.
+	 * 
+	 * @param args Unused.
+	 * @throws IOException If an input or output exception occurred.
+	 * @return Nothing.
+	 */
 	public static void main(String[] args) throws IOException {
 		// Initialize hash table with size 20.
 		HashTable hashTable = new HashTable(20);
