@@ -31,7 +31,11 @@ public class HashTable {
     // Displays the hash table
     public void display() {
         for (int i = 0; i < size; i++) {
-            System.out.println("Index " + i + ": " + hashTable[i]);
+            System.out.print("Index " + i + ": ");
+            if(hashTable[i] == null) {
+            	System.out.println("EMPTY");
+            } else hashTable[i].displayList();
+            
         }
     }
 

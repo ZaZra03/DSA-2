@@ -19,10 +19,8 @@ public class LinkedList {
 		}
 		
 		else {
-			Node currentNode = tail;
-			currentNode.setNext(node);
+			tail.setNext(node);
 			tail = node;
-			head.setNext(currentNode);
 		}
 	}
 	
@@ -31,11 +29,11 @@ public class LinkedList {
 	}
 	
 	public void displayList() {
-		System.out.print("\nThe values are: ");
 		Node currentNode = head;
 		while(currentNode != null) {
-			System.out.print(currentNode.getData() + " ");
+			System.out.print(currentNode.getData() + "-> ");
 			currentNode = currentNode.getNext();
 		}
+		System.out.println();
 	}
 }
