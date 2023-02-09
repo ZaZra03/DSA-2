@@ -1,3 +1,5 @@
+package Week1;
+
 /**
  * Hash Table Menu-Driven Program
  * This program implements a program that perform the given hash table
