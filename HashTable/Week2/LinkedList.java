@@ -7,10 +7,6 @@ public class LinkedList {
 	public Node getHead() {
 		return head;
 	}
-
-	public void setHead(Node head) {
-		this.head = head;
-	}
 	
 	public void addNode(Node node) {
 		if(head == null) {
