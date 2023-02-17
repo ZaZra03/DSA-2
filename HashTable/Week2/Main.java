@@ -33,7 +33,7 @@ public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		// Initialize a new HashTable with a capacity of 10.
 		HashTable hashTable = new HashTable(10);
-		
+
 		// Initialize a BufferedReader to read user input from the console.
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -47,44 +47,48 @@ public class Main {
 			System.out.println("5. Exit");
 			System.out.print("\n>> ");
 
-			// Read user input.
-			int choice = Integer.parseInt(in.readLine());
-			System.out.println();
+			try {
+				// Read user input.
+				int choice = Integer.parseInt(in.readLine());
+				System.out.println();
 
-			// Execute the selected menu option.
-			switch (choice) {
-			case 1: // Add New Key
-				System.out.print("Enter a key: ");
-				int key = Integer.parseInt(in.readLine());
-				if (key > 0)
-					hashTable.addNewKey(key);
-				else
-					System.out.println("\nKey should be a positive integer value.");
-				break;
-			case 2: // Display Hash Table
-				hashTable.display();
-				break;
-			case 3: // Search
-				System.out.print("Enter a key to search: ");
-				key = Integer.parseInt(in.readLine());
-				if (key > 0)
-					hashTable.search(key);
-				else
-					System.out.println("\nKey should be a positive integer value.");
-				break;
-			case 4: // Delete
-				System.out.print("Enter a key to delete: ");
-				key = Integer.parseInt(in.readLine());
-				if (key > 0)
-					hashTable.delete(key);
-				else
-					System.out.println("\nKey should be a positive integer value.");
-				break;
-			case 5: // Exit
-				System.exit(0);
-				break;
-			default:
-				System.out.println("Invalid choice!");
+				// Execute the selected menu option.
+				switch (choice) {
+				case 1: // Add New Key
+					System.out.print("Enter a key: ");
+					int key = Integer.parseInt(in.readLine());
+					if (key > 0)
+						hashTable.addNewKey(key);
+					else
+						System.out.println("\nKey should be a positive integer value.");
+					break;
+				case 2: // Display Hash Table
+					hashTable.display();
+					break;
+				case 3: // Search
+					System.out.print("Enter a key to search: ");
+					key = Integer.parseInt(in.readLine());
+					if (key > 0)
+						hashTable.search(key);
+					else
+						System.out.println("\nKey should be a positive integer value.");
+					break;
+				case 4: // Delete
+					System.out.print("Enter a key to delete: ");
+					key = Integer.parseInt(in.readLine());
+					if (key > 0)
+						hashTable.delete(key);
+					else
+						System.out.println("\nKey should be a positive integer value.");
+					break;
+				case 5: // Exit
+					System.exit(0);
+					break;
+				default:
+					System.out.println("Invalid choice!");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("\nInput must be an integer.");
 			}
 		}
 	}
