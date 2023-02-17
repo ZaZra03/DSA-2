@@ -2,16 +2,14 @@ package Week2;
 
 public class HashTable {
     private LinkedList[] hashTable;
-
     private int size;
-
 
     public HashTable(int size) {
         this.size = size;
         this.hashTable = new LinkedList[size];
     }
 
-    // Hash function h(k) = k modulo 20
+    // Hash function h(k) = k modulo 10
     private int hashFunction(int key) {
     	return key % size;
     }
@@ -42,16 +40,29 @@ public class HashTable {
     // Searches for a key in the hash table
 	public void search(int key) {
 		int index = hashFunction(key);
-		int temp = hashFunction(key);
-
-
+		
+		if(hashTable[index] == null) {
+            System.out.println("Cell is still empty.");
+            
+        } else {
+        	if(hashTable[index].search(new Node(key))) {
+        		System.out.println(key + " is present at index " + index);
+        	} else System.out.println("Key does not exist.");
+        } 
 	}
 
     // Deletes a key from the hash table
 	public void delete(int key) {
 		int index = hashFunction(key);
-		int temp = hashFunction(key);
 
-
+		if(hashTable[index] == null) {
+            System.out.println("Cell is still empty.");
+            
+        } else {
+        	if(hashTable[index].search(new Node(key))) {
+        		hashTable[index].deleteNode(new Node(key));
+        		if(hashTable[index].getHead() == null) hashTable[index] = null;
+        	} else System.out.println("Key does not exist.");
+        } 
 	}
 }

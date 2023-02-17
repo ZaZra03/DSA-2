@@ -24,16 +24,44 @@ public class LinkedList {
 		}
 	}
 	
-	public void deleteNode() {
-		tail = null;
+	public void deleteNode(Node node) {
+		Node currentNode = head;
+		Node previousNode = null;
+		
+		if(currentNode.getData() == node.getData()) {
+			head = currentNode.getNext();
+			System.out.println("Key successfully deleted.");
+			return;
+		}
+		
+		while(currentNode != null) {
+			if(currentNode.getData() == node.getData()) {
+				System.out.println("Key successfully deleted.");
+				previousNode.setNext(currentNode.getNext());
+			}
+			previousNode = currentNode;
+			currentNode = currentNode.getNext();
+		}
 	}
 	
 	public void displayList() {
 		Node currentNode = head;
 		while(currentNode != null) {
-			System.out.print(currentNode.getData() + "-> ");
+			System.out.print(currentNode.getData() + " -> ");
 			currentNode = currentNode.getNext();
 		}
 		System.out.println();
+	}
+	
+	public boolean search(Node node) {
+		Node currentNode = head;
+
+		while(currentNode != null) {
+			if(currentNode.getData() == node.getData()) {
+				return true;
+			}
+			currentNode = currentNode.getNext();
+		}
+		return false;
 	}
 }
