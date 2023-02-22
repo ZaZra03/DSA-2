@@ -64,13 +64,16 @@ public class HashTable {
 	public void addNewKey(int key) {
 		int index = hashFunction(key);
 		System.out.println("Computed hash: " + index);
-
-		if (hashTable[index] == null) {
-			hashTable[index] = new LinkedList();
-			hashTable[index].addNode(new Node(key));
-
-		} else
-			hashTable[index].addNode(new Node(key));
+        
+		if(hashTable[index] == null) {
+			hashTable[index] = new LinkedList(); hashTable[index].addNode(new Node(key));
+            
+		} else {
+			if(!hashTable[index].search(new Node(key))) {
+				hashTable[index].addNode(new Node(key));
+			} else System.out.println("Key already existed.");
+        	
+		}
 	}
 
 	/**
