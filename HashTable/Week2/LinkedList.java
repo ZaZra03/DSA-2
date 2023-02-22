@@ -75,6 +75,7 @@ public class LinkedList {
 			if (currentNode.getData() == node.getData()) {
 				System.out.println("Key successfully deleted.");
 				previousNode.setNext(currentNode.getNext());
+				return;
 			}
 			previousNode = currentNode;
 			currentNode = currentNode.getNext();
