@@ -96,6 +96,19 @@ public class UnionFind {
 		}
 	}
 
+    /**
+     * The findNode method takes an integer value as input and searches for a 
+     * node with that value in the parents array. It uses the hashFunction to
+     * calculate the index at which the node should be located in the array. If the 
+     * node is found at that index, it is returned. If not, the method performs linear
+     * probing to search for the node in the array. Linear probing involves checking
+     * the next index in the array until an empty spot is found or the entire array 
+     * has been searched. If the node is not found after the entire array has been 
+     * searched, a new node with the specified value is created and returned.
+     *
+     * @param cur the value to search for
+     * @return the node with the specified value if found, otherwise a new node with the specified value
+     */
 	public Node findNode(int cur) {
 		int index = hashFunction(cur);
 		int temp = hashFunction(cur);
@@ -113,48 +126,84 @@ public class UnionFind {
 		}
 		return new Node(cur);
 	}
-
+	
+    /**
+     * Determines if two values are connected.
+     *
+     * @param first  Integer the first value
+     * @param second Integer the second value
+     * @return true if the two values are connected, false otherwise
+     */
 	public boolean connected(int first, int second) {
 		Node firstNode = findNode(first);
 		Node secondNode = findNode(second);
 		return connected(firstNode, secondNode);
 	}
 
+    /**
+     * Determines if two values are connected.
+     *
+     * @param first  Node the first value
+     * @param second Node the second value
+     * @return true if the two values are connected, false otherwise
+     */
 	public boolean connected(Node first, Node second) {
 		Node root1 = findRoot(first);
 		Node root2 = findRoot(second);
 		return root1 == root2;
 	}
 
-	public Node findRoot(Node node) {
-		while (node.getHead() != null) {
-			node = node.getHead();
-		}
-		return node;
-	}
+    /**
+     * This method finds and returns the root node of a given node.
+     * Starting from the given node, the method iteratively follows the head field 
+     * to its parent until the head field of the current node is null, which 
+     * indicates that it is the root node. Once the root node is found, the method 
+     * returns it.
+     *
+     * @param node the node to find the root of
+     * @return the root node of the tree that contains the given node
+     */
+    public Node findRoot(Node node) {
+        while (node.getHead() != null) {
+            node = node.getHead();
+        }
+        return node;
+    }
 
-	public void union(Node node1, Node node2) {
-		if (node1 == node2) {
-			System.out.println("\nBoth are the same nodes.");
-			return;
-		}
+    /**
+     * This code implements the union-find data structure using the weighted
+     * quick-union algorithm to connect two nodes by linking the root of the 
+     * smaller tree to the root of the larger tree, and updates the size of the larger 
+     * tree accordingly. It also includes checks for nodes that are already connected 
+     * or are the same node.
+     *
+     * @param node1 the first node to merge
+     * @param node2 the second node to merge
+     */
+    public void union(Node node1, Node node2) {
+        if (node1 == node2) {
+            System.out.println("\nBoth are the same nodes.");
+            return;
+        }
 
-		if (connected(node1, node2)) {
-			System.out.println("\nThe nodes are already connected.");
-			return;
-		}
+        if (connected(node1, node2)) {
+            System.out.println("\nThe nodes are already connected.");
+            return;
+        }
 
-		Node root1 = findRoot(node1);
-		Node root2 = findRoot(node2);
+        Node root1 = findRoot(node1);
+        Node root2 = findRoot(node2);
 
-		if (size[root1.getIndex()] >= size[root2.getIndex()]) {
-			root2.setHead(root1);
-			size[root1.getIndex()] += size[root2.getIndex()];
-		} else {
-			root1.setHead(root2);
-			size[root2.getIndex()] += size[root1.getIndex()];
-		}
+        if (size[root1.getIndex()] >= size[root2.getIndex()]) {
+            root2.setHead(root1);
+            size[root1.getIndex()] += size[root2.getIndex()];
+        } else {
+            root1.setHead(root2);
+            size[root2.getIndex()] += size[root1.getIndex()];
+        }
 
-		System.out.println("\nOperation successful!");
-	}
+        System.out.println("\nOperation successful!");
+    }
+
+    // Other methods omitted for brevity
 }
