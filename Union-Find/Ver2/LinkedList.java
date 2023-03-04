@@ -1,3 +1,24 @@
+/**
+ * The LinkedList class is a data structure used in the implementation of the 
+ * Union-Find algorithm. It is used to store the nodes and create connections 
+ * between them to form disjoint sets. In the context of Union-Find, the 
+ * LinkedList class is responsible for maintaining the linked list of nodes, 
+ * adding new nodes to the end of the list, and providing access to the head of 
+ * the list. The LinkedList class is used in conjunction with the Node class,
+ * which represents the individual nodes in the linked list. Together, these 
+ * classes allow for efficient union and find operations in the Union-Find 
+ * algorithm.
+ * 
+ * @class LinkedList
+ * 
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Mark Cedrick De Vera
+ * @see Main
+ * @see UnionFind
+ * @see Node
+ */
+
 public class LinkedList {
 	// Class fields
 	private Node head;
