@@ -10,7 +10,7 @@
  * the concept of "path compression" to optimize the time complexity of the find() operation.
  * 
  *
- * @class HashTable
+ * @class UnionFind
  * 
  * @author Eugene Lawrence Autos
  * @author Ezra Micah Malsi
