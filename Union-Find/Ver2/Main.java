@@ -86,9 +86,14 @@ public class Main {
                             System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
                             break;
                         }
-                        System.out.println();
-                        System.out.println(u.connected(u.findNode(x), u.findNode(y)));
-                        break;
+                        
+                       	if (u.connected(u.findNode(x), u.findNode(y)) == true) {
+					    	System.out.println("\nThe two numbers are connected!");
+					    } else {
+					    	System.out.println("\nThe two numbers are not connected!");
+					    }
+                        
+				    	break;
                     case 3:
                         System.out.println("\nEnd of program...\n");
                         in.close();
