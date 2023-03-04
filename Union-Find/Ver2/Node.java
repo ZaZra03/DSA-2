@@ -10,6 +10,7 @@
  * @see UnionFind
  * @see LinkedList
  */
+
 public class Node {
     // Class fields
     private int data;
