@@ -88,12 +88,12 @@ public class Main {
                         }
                         
                        	if (u.connected(u.findNode(x), u.findNode(y)) == true) {
-					    	System.out.println("\nThe two numbers are connected!");
-					    } else {
-					    	System.out.println("\nThe two numbers are not connected!");
-					    }
+			 	System.out.println("\nThe two numbers are connected!");
+			} else {
+				System.out.println("\nThe two numbers are not connected!");
+			}
                         
-				    	break;
+			break;
                     case 3:
                         System.out.println("\nEnd of program...\n");
                         in.close();
