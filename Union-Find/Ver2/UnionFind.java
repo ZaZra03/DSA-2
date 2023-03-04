@@ -81,6 +81,7 @@ public class UnionFind {
 			while (parents[index] != null) {
 				if (parents[index].getData() == node.getData()) {
 					System.out.println("\nNode already exists in the array.");
+					Main.numCount--;
 					return;
 				}
 
