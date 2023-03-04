@@ -1,3 +1,5 @@
+package Ver2;
+
 /**
  * This is a Java implementation of the Union-Find data structure, which is used 
  * to efficiently keep track of a set of elements partitioned into disjoint subsets, 
@@ -121,8 +123,11 @@ public class UnionFind {
 			index = (index + 1) % size.length;
 
 			// Break Point.
-			if (index == temp)
+			if (index == temp) {
+				System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
 				break; // Key has not been found.
+			}
+				
 		}
 		return new Node(cur);
 	}
