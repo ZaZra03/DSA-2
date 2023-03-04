@@ -1,3 +1,5 @@
+package Ver2;
+
 /**
  * This is a Java implementation of the Union-Find data structure, which is used 
  * to efficiently keep track of a set of elements partitioned into disjoint subsets, 
@@ -122,12 +124,44 @@ public class UnionFind {
 
 			// Break Point.
 			if (index == temp) {
-				System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
 				break; // Key has not been found.
 			}
 				
 		}
 		return new Node(cur);
+	}
+	
+    /**
+     * The findNode method takes an integer value as input and searches for a 
+     * node with that value in the parents array. It uses the hashFunction to
+     * calculate the index at which the node should be located in the array. If the 
+     * node is found at that index, it is returned. If not, the method performs linear
+     * probing to search for the node in the array. Linear probing involves checking
+     * the next index in the array until an empty spot is found or the entire array 
+     * has been searched. If the node is not found after the entire array has been 
+     * searched, a new node with the specified value is created and returned.
+     *
+     * @param cur the value to search for
+     * @return the node with the specified value if found, otherwise a new node with the specified value
+     */
+	public boolean findNode(Node cur) {
+		int index = hashFunction(cur.getData());
+		int temp = hashFunction(cur.getData());
+
+		while (parents[index] != null) {
+			if (parents[index].getData() == cur.getData())
+				return true; // Key has been found.
+
+			// Compute the next index.
+			index = (index + 1) % size.length;
+
+			// Break Point.
+			if (index == temp) {
+				return false; // Key has not been found.
+			}
+				
+		}
+		return false;
 	}
 	
     /**
