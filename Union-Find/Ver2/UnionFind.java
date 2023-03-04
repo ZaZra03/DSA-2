@@ -1,5 +1,3 @@
-package Ver2;
-
 /**
  * This is a Java implementation of the Union-Find data structure, which is used 
  * to efficiently keep track of a set of elements partitioned into disjoint subsets, 
