@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
  * @see LinkedList
  */
 public class Main {
-
+	public static int numCount = 0; // For tracking if there is a duplicate node
 	/**
 	 * The main method prompts the user to enter 10 numbers to form a set, then
 	 * handles user input to perform Union and Find operations on the set using the
