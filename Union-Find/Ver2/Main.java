@@ -1,3 +1,5 @@
+package Ver2;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,19 +54,26 @@ public class Main {
 
             try {
                 int choice = Integer.parseInt(in.readLine());
+                int x, y;
+                Node first, second;
+                
+                
                 switch (choice) {
                     case 1:
                         System.out.print("\nEnter first number for Union operation: ");
-                        int x = Integer.parseInt(in.readLine());
-                        if (u.findNode(x).getData() != x) {
+                        x = Integer.parseInt(in.readLine());
+                        first = new Node(x);
+                        
+                        if (!u.findNode(first)) {
                             System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
                             break;
                         }
 
                         System.out.print("\nEnter second number for Union operation: ");
-                        int y = Integer.parseInt(in.readLine());
+                        y = Integer.parseInt(in.readLine());
+                        second = new Node(y);
 
-                        if (u.findNode(y).getData() != y) {
+                        if (!u.findNode(second)) {
                             System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
                             break;
                         }
@@ -86,14 +95,9 @@ public class Main {
                             System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
                             break;
                         }
-                        
-                       	if (u.connected(u.findNode(x), u.findNode(y)) == true) {
-			 	System.out.println("\nThe two numbers are connected!");
-			} else {
-				System.out.println("\nThe two numbers are not connected!");
-			}
-                        
-			break;
+                        System.out.println();
+                        System.out.println(u.connected(u.findNode(x), u.findNode(y)));
+                        break;
                     case 3:
                         System.out.println("\nEnd of program...\n");
                         in.close();
