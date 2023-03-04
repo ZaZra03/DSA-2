@@ -62,7 +62,7 @@ public class Main {
 					first = new Node(x);
 
 					if (!u.findNode(first)) {
-						System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
+						System.out.println("\nERROR! That number is not part of the set. Please try again!");
 						break;
 					}
 
@@ -71,7 +71,7 @@ public class Main {
 					second = new Node(y);
 
 					if (!u.findNode(second)) {
-						System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
+						System.out.println("\nERROR! That number is not part of the set. Please try again!");
 						break;
 					}
 
@@ -83,7 +83,7 @@ public class Main {
 					first = new Node(x);
 
 					if (!u.findNode(first)) {
-						System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
+						System.out.println("\nERROR! That number is not part of the set. Please try again!");
 						break;
 					}
 
@@ -92,7 +92,7 @@ public class Main {
 					second = new Node(y);
 
 					if (!u.findNode(second)) {
-						System.out.println("\nERROR! That number is not part of the set. Please try again!\n");
+						System.out.println("\nERROR! That number is not part of the set. Please try again!");
 						break;
 					}
 
