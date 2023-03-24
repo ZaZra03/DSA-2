@@ -1,6 +1,7 @@
 public class SkipNode {
 	private int data;
 	private SkipNode next;
+	private SkipNode prev;
 	private Node bottom;
 	
 	public SkipNode() {
@@ -24,6 +25,14 @@ public class SkipNode {
 
 	public SkipNode getNext() {
 		return next;
+	}
+	
+	public SkipNode getPrev() {
+		return prev;
+	}
+	
+	public void setPrev(SkipNode prev) {
+		this.prev = prev;
 	}
 
 	public void setNext(SkipNode next) {

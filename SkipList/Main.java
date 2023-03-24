@@ -25,10 +25,10 @@ public class Main {
 			System.out.println("3. Display List from Head");
 			System.out.println("4. Display Skip List from Head");
 			System.out.println("5. Display List from Tail");
-			System.out.println("6. Display Skip List from Head");
+			System.out.println("6. Display Skip List from Tail");
 			System.out.println("7. Search from Head");
-			System.out.println("7. Search from Tail");
-			System.out.println("8. Exit");
+			System.out.println("8. Search from Tail");
+			System.out.println("9. Exit");
 			System.out.print("\n>> ");
 
 			try {
@@ -45,9 +45,7 @@ public class Main {
 						// computes the number of nodes to be skipped
 						int nodesToSkip = (int) squareRoot(list.getSize());
 						// creates the first node of the skip list
-
 						SkipNode skipNode = new SkipNode();
-
 						skipNode.setData(list.getHead().getData());
 						skipNode.setBottom(list.getHead());
 						skiplist.addNode(skipNode);
@@ -61,42 +59,45 @@ public class Main {
 									break;
 
 							}
+							
 							if(currentNode!=null) {
 								skipNode = new SkipNode();
 								skipNode.setData(currentNode.getData());
 								skipNode.setBottom(currentNode);
 								skiplist.addNode(skipNode);
-
 							}
 						}
 						System.out.print("\nSkip list created!");
 					}
 					break;
 
-				case 2: // Display Hash Table
+				case 2: //Add Node
 					System.out.println("Iniatilized: ");
 					value = Integer.parseInt(in.readLine());
 					list.addNode(new Node(value));
 					break;
-				case 3: // Search
-
+				case 3: // Display List from Head
+					list.displayList();
 					break;
-				case 4: // Delete
-
+				case 4: // Display Skip List from Head
+					skiplist.displayList();
 					break;
-				case 5: // Exit
-					System.exit(0);
+				case 5: // Display List from Tail
+					list.displayReversedList();
+					break;
+				case 6: // Display Skip List from Tail
+					skiplist.displayReversedList();
 					break;
 
-				case 6: // Exit
-					System.exit(0);
-					break;
-
-				case 7: // Exit
+				case 7: // Search from Head
 					System.exit(0);
 					break;
 					
-				case 8: // Exit
+				case 8: // Search from Tail
+					System.exit(0);
+					break;
+					
+				case 9: // Exit
 					System.exit(0);
 					break;
 				default:
@@ -108,7 +109,7 @@ public class Main {
 		}
 	}
 	
-	public static double squareRoot(int num)   
+	static double squareRoot(int num)   
 	{
 		double t, sqrtroot=num/2;   
 		do   

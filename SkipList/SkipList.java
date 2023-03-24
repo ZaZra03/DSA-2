@@ -14,14 +14,13 @@ public class SkipList {
 	public void addNode(SkipNode node) {
 		if(head == null) {
 			head = node;
-			tail = node;
 		} 
 		
 		else {
-			tail.setNext(node);
-			tail = node; 
+			tail.setNext(node);;
+			node.setPrev(tail);
 		}
-		
+		tail = node;
 	}
 	
 	public SkipNode getTail() {
@@ -36,6 +35,17 @@ public class SkipList {
 			while(currentNode != null) {
 				System.out.print(currentNode.getData() + " ");
 				currentNode = currentNode.getNext();
+			}
+		} else System.out.print("\nThe list is empty.");
+	}
+	
+	public void displayReversedList() {
+		if(head != null) {
+			System.out.print("\nThe values are: ");
+			SkipNode currentNode = tail;
+			while(currentNode != null) {
+				System.out.print(currentNode.getData() + " ");
+				currentNode = currentNode.getPrev();
 			}
 		} else System.out.print("\nThe list is empty.");
 	}

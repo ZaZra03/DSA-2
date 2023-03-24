@@ -23,13 +23,28 @@ public class LinkedList {
 		}
 		
 		else {
-			Node currentNode = tail;	
-			currentNode.setNext(node);
-			node.setPrev(currentNode);
+			tail.setNext(node);;
+			node.setPrev(tail);
 			tail = node;
+			insertionSort(node);
 			size++;
 		}
 	}
+	
+    private void insertionSort(Node node) {
+        Node key = node;
+        Node prev = node.getPrev();
+
+        while (prev != null && prev.getData() > key.getData()) {
+            // Swap key and prev node values
+            int temp = key.getData();
+            key.setData(prev.getData());
+            prev.setData(temp);
+
+            key = prev;
+            prev = prev.getPrev();
+        }
+    }
 	
 	public void deleteNode() {
 		tail = tail.getPrev();
@@ -38,24 +53,24 @@ public class LinkedList {
 	}
 	
 	public void displayList() {
-		System.out.print("The values are: ");
-		Node currentNode = head;
-		while(currentNode != null) {
-			System.out.print(currentNode.getData() + " ");
-			currentNode = currentNode.getNext();
-			
-		}
+		if(head != null) {
+			System.out.print("\nThe values are: ");
+			Node currentNode = head;
+			while(currentNode != null) {
+				System.out.print(currentNode.getData() + " ");
+				currentNode = currentNode.getNext();
+			}
+		} else System.out.print("\nThe list is empty.");
 	}
 	
 	public void displayReversedList() {
-		System.out.print("\nTHe values are: ");
-		Node currentNode = head;
-		while(currentNode.getNext() != null) {
-			currentNode = currentNode.getNext();
-		}
-		while(currentNode != null) {
-			System.out.print(currentNode.getData() + " ");
-			currentNode = currentNode.getPrev();
-		}
+		if(head != null) {
+			System.out.print("\nThe values are: ");
+			Node currentNode = tail;
+			while(currentNode != null) {
+				System.out.print(currentNode.getData() + " ");
+				currentNode = currentNode.getPrev();
+			}
+		} else System.out.print("\nThe list is empty.");
 	}
 }
