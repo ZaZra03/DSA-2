@@ -1,3 +1,5 @@
+package Week2;
+
 /**
  * A Hashtable is a data structure that implements an associative array abstract
  * data type, a structure that can map keys to values. A hashtable uses a hash

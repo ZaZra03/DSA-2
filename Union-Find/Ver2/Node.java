@@ -1,3 +1,5 @@
+package Ver2;
+
 /**
  * Node class for a linked list in a disjoint-set data structure.
  * 

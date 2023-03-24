@@ -1,3 +1,5 @@
+package Ver2;
+
 /**
  * The LinkedList class is a data structure used in the implementation of the 
  * Union-Find algorithm. It is used to store the nodes and create connections 

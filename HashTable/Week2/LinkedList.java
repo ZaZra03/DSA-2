@@ -1,3 +1,5 @@
+package Week2;
+
 /**
  * The LinkedList class provides an implementation of a singly linked list,
  * which is a linear data structure where each element is a separate object

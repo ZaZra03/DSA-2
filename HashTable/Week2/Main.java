@@ -1,3 +1,5 @@
+package Week2;
+
 
 /**
  * This is the main class of the program, which provides a user interface for the

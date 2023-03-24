@@ -1,3 +1,5 @@
+package Week2;
+
 /**
  * The Node class represents a node in a linked list. It contains an integer
  * value (data) and a reference to the next node in the list (next).
