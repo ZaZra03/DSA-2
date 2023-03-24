@@ -11,8 +11,8 @@ public class Main {
 		System.out.print("Enter the size of the linked list: ");
 		int size = Integer.parseInt(in.readLine());
 		int value;
-		System.out.println("Iniatilized: ");
 		 for(int i = 0; i < size; i++) {
+			System.out.print("Enter a value: ");
 			value = Integer.parseInt(in.readLine());
 			list.addNode(new Node(value));
 		}
@@ -72,9 +72,10 @@ public class Main {
 					break;
 
 				case 2: //Add Node
-					System.out.println("Iniatilized: ");
+					System.out.print("Enter a value: ");
 					value = Integer.parseInt(in.readLine());
-					list.addNode(new Node(value));
+					if(value < list.getTail().getData()) System.out.println("The value must be greater than " + list.getTail().getData());
+					else list.addNode(new Node(value));
 					break;
 				case 3: // Display List from Head
 					list.displayList();
