@@ -3,10 +3,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+
 	public static void main(String[] args) throws NumberFormatException, IOException {
   		LinkedList list = new LinkedList();
   		SkipList skiplist = new SkipList();
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		int nodesToSkip=0, number=0;
 		
 		System.out.print("Enter the size of the linked list: ");
 		int size = Integer.parseInt(in.readLine());
@@ -43,7 +45,8 @@ public class Main {
 						System.out.print("\nAlready created a skip list.");
 					else {
 						// computes the number of nodes to be skipped
-						int nodesToSkip = (int) squareRoot(list.getSize());
+						nodesToSkip = (int) squareRoot(list.getSize());
+						number = (int) squareRoot(list.getSize());
 						// creates the first node of the skip list
 						SkipNode skipNode = new SkipNode();
 						skipNode.setData(list.getHead().getData());
@@ -75,8 +78,28 @@ public class Main {
 					System.out.print("Enter a value: ");
 					value = Integer.parseInt(in.readLine());
 					if(value < list.getTail().getData()) System.out.println("The value must be greater than " + list.getTail().getData());
-					else list.addNode(new Node(value));
+					else {
+						list.addNode(new Node(value));
+						Node currentNode = skiplist.getTail().getBottom();
+						while(currentNode!=null) {
+							for(int i=1; i <= nodesToSkip+1; i++) {
+								if(currentNode!=null)
+									currentNode = currentNode.getNext();
+								else
+									break;
+
+							}
+							
+							if(currentNode!=null) {
+								SkipNode skipNode = new SkipNode();
+								skipNode.setData(currentNode.getData());
+								skipNode.setBottom(currentNode);
+								skiplist.addNode(skipNode);
+							}
+						}
+					} 
 					break;
+					
 				case 3: // Display List from Head
 					list.displayList();
 					break;
@@ -91,11 +114,71 @@ public class Main {
 					break;
 
 				case 7: // Search from Head
-					System.exit(0);
+					if(list.getHead() != null) {
+						boolean isFound = false, isFinished = false;
+						int numNodes = 1, numSkipNodes = 0;
+						System.out.print("Enter a value: ");
+						value = Integer.parseInt(in.readLine());
+						SkipNode currentSkipNode = skiplist.getHead();
+						while(currentSkipNode != null && isFinished != true) {
+							if(currentSkipNode.getData() == value) {
+								System.out.println("Number of Traversed Nodes: " + numNodes);
+								System.out.println("Number of Skipped Nodes: " + numSkipNodes);
+								isFound = true;
+								isFinished = true;
+							}
+							else if (currentSkipNode.getData() < value && currentSkipNode.getNext() != null) {
+								currentSkipNode = currentSkipNode.getNext();
+								numSkipNodes = numSkipNodes + (number+1);
+								numNodes++;
+							}
+							
+							else {
+								Node currentNode = currentSkipNode.getBottom();
+								if(currentNode.getData() > value) {
+									while(currentSkipNode.getPrev().getBottom() != currentNode) {
+										if(currentNode.getData() == value) {
+											System.out.println("Number of Traversed Nodes: " + numNodes);
+											System.out.println("Number of Skipped Nodes: " + numSkipNodes);
+											isFound = true;
+											isFinished = true;
+											break;
+										} else {
+											currentNode = currentNode.getPrev();
+											numNodes++;
+										}
+									}
+									if(!isFound) {
+										System.out.println("Value not found.");
+										isFinished = true;
+									} 
+								} else {
+									while(currentNode != null) {
+										if(currentNode.getData() == value) {
+											System.out.println("Number of Traversed Nodes: " + numNodes);
+											System.out.println("Number of Skipped Nodes: " + numSkipNodes);
+											isFound = true;
+											isFinished = true;
+											break;
+										} else {
+											currentNode = currentNode.getNext();
+											numNodes++;
+										}
+									}
+									if(!isFound) {
+										System.out.println("Value not found.");
+										isFinished = true;
+									}
+								}
+							}
+						}
+					} else System.out.println("List is empty.");
 					break;
 					
 				case 8: // Search from Tail
-					System.exit(0);
+					if(list.getHead() != null) {
+						
+					} else System.out.println("List is empty.");
 					break;
 					
 				case 9: // Exit
