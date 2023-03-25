@@ -30,23 +30,33 @@ public class SkipList {
 	
 	public void displayList() {
 		if(head != null) {
-			System.out.print("\nThe values are: ");
+			System.out.print("The values are: ");
 			SkipNode currentNode = head;
 			while(currentNode != null) {
 				System.out.print(currentNode.getData() + " ");
 				currentNode = currentNode.getNext();
 			}
-		} else System.out.print("\nThe list is empty.");
+			System.out.println();
+			
+		} else {
+			System.out.print("The list is empty.");
+			System.out.println();
+		}
 	}
 	
 	public void displayReversedList() {
 		if(head != null) {
-			System.out.print("\nThe values are: ");
+			System.out.print("The values are: ");
 			SkipNode currentNode = tail;
 			while(currentNode != null) {
 				System.out.print(currentNode.getData() + " ");
 				currentNode = currentNode.getPrev();
 			}
-		} else System.out.print("\nThe list is empty.");
+			System.out.println();
+			
+		} else {
+			System.out.print("The list is empty.");
+			System.out.println();
+		}
 	}
 }

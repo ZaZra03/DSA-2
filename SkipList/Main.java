@@ -114,7 +114,7 @@ public class Main {
 					break;
 
 				case 7: // Search from Head
-					if(list.getHead() != null) {
+					if(skiplist.getHead() != null) {
 						boolean isFound = false, isFinished = false;
 						int numNodes = 1, numSkipNodes = 0;
 						System.out.print("Enter a value: ");
@@ -175,7 +175,7 @@ public class Main {
 								}
 							}
 						}
-					} else System.out.println("List is empty.");
+					} else System.out.println("Skip List is empty.");
 					break;
 					
 				case 8: // Search from Tail

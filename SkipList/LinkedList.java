@@ -53,24 +53,25 @@ public class LinkedList {
 	}
 	
 	public void displayList() {
-		if(head != null) {
-			System.out.print("\nThe values are: ");
-			Node currentNode = head;
-			while(currentNode != null) {
-				System.out.print(currentNode.getData() + " ");
-				currentNode = currentNode.getNext();
-			}
-		} else System.out.print("\nThe list is empty.");
+		System.out.print("The values are: ");
+		Node currentNode = head;
+		while(currentNode != null) {
+			System.out.print(currentNode.getData() + " ");
+			currentNode = currentNode.getNext();
+		}
+		System.out.println();
 	}
 	
 	public void displayReversedList() {
 		if(head != null) {
-			System.out.print("\nThe values are: ");
+			System.out.print("The values are: ");
 			Node currentNode = tail;
 			while(currentNode != null) {
 				System.out.print(currentNode.getData() + " ");
 				currentNode = currentNode.getPrev();
 			}
-		} else System.out.print("\nThe list is empty.");
+			System.out.println();
+
+		}
 	}
 }
