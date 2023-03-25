@@ -122,6 +122,7 @@ public class Main {
 						SkipNode currentSkipNode = skiplist.getHead();
 						while(currentSkipNode != null && isFinished != true) {
 							if(currentSkipNode.getData() == value) {
+								System.out.println("Value found.");
 								System.out.println("Number of Traversed Nodes: " + numNodes);
 								System.out.println("Number of Skipped Nodes: " + numSkipNodes);
 								isFound = true;
@@ -138,6 +139,7 @@ public class Main {
 								if(currentNode.getData() > value) {
 									while(currentSkipNode.getPrev().getBottom() != currentNode) {
 										if(currentNode.getData() == value) {
+											System.out.println("Value found.");
 											System.out.println("Number of Traversed Nodes: " + numNodes);
 											System.out.println("Number of Skipped Nodes: " + numSkipNodes);
 											isFound = true;
@@ -155,6 +157,7 @@ public class Main {
 								} else {
 									while(currentNode != null) {
 										if(currentNode.getData() == value) {
+											System.out.println("Value found.");
 											System.out.println("Number of Traversed Nodes: " + numNodes);
 											System.out.println("Number of Skipped Nodes: " + numSkipNodes);
 											isFound = true;
