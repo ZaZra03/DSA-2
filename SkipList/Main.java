@@ -166,6 +166,7 @@ public class Main {
 	static double squareRoot(int num) {
 		double t, sqrtroot = num / 2;
 		do {
+			if(num == 1) return 1;
 			t = sqrtroot;
 			sqrtroot = (t + (num / t)) / 2;
 		} while ((t - sqrtroot) != 0);
