@@ -18,6 +18,9 @@ public class Main {
 			value = Integer.parseInt(in.readLine());
 			list.addNode(new Node(value));
 		}
+		 // computes the number of nodes to be skipped
+		 nodesToSkip = (int) squareRoot(list.getSize());
+		 number = (int) squareRoot(list.getSize());
 
 		// Display a menu and read user input until the user chooses to exit.
 		while (true) {
@@ -81,7 +84,7 @@ public class Main {
 						System.out.print("Enter a value: ");
 						value = Integer.parseInt(in.readLine());
 						SkipNode currentSkipNode = skiplist.getTail();
-						searchFromHead(list, currentSkipNode, isFound, isFinished, number, value, numNodes, numSkipNodes);
+						searchFromTail(list, currentSkipNode, isFound, isFinished, number, value, numNodes, numSkipNodes);
 					} else System.out.println("Skip List is empty.");
 					break;
 					
@@ -112,9 +115,6 @@ public class Main {
 		if(skiplist.getHead()!=null)
 			System.out.print("\nAlready created a skip list.");
 		else {
-			// computes the number of nodes to be skipped
-			nodesToSkip = (int) squareRoot(list.getSize());
-			number = (int) squareRoot(list.getSize());
 			// creates the first node of the skip list
 			SkipNode skipNode = new SkipNode(list.getHead().getData(), list.getHead());
 			skiplist.addNode(skipNode);
@@ -171,7 +171,7 @@ public class Main {
 			}
 			else if (currentSkipNode.getData() < value && currentSkipNode.getNext() != null) {
 				currentSkipNode = currentSkipNode.getNext();
-				numSkipNodes = numSkipNodes + (number+1);
+				numSkipNodes = numSkipNodes + number;
 				numNodes++;
 			}
 			
@@ -236,7 +236,7 @@ public class Main {
 			}
 			else if (currentSkipNode.getData() > value && currentSkipNode.getPrev() != null) {
 				currentSkipNode = currentSkipNode.getPrev();
-				numSkipNodes = numSkipNodes + (number+1);
+				numSkipNodes = numSkipNodes + number;
 				numNodes++;
 			}
 			
@@ -244,6 +244,26 @@ public class Main {
 				Node currentNode = currentSkipNode.getBottom();
 				if(currentNode == list.getTail()) {
 					if(currentNode.getData() < value) {
+						System.out.println("Value not found.");
+						isFinished = true;
+					}
+				}
+				
+				else if(currentNode.getData() < value && currentSkipNode.getNext() == null) {
+					while(currentNode != null) {
+						if(currentNode.getData() == value) {
+							System.out.println("Value found.");
+							System.out.println("Number of Traversed Nodes: " + numNodes);
+							System.out.println("Number of Skipped Nodes: " + numSkipNodes);
+							isFound = true;
+							isFinished = true;
+							break;
+						} else {
+							currentNode = currentNode.getNext();
+							numNodes++;
+						}
+					}
+					if(!isFound) {
 						System.out.println("Value not found.");
 						isFinished = true;
 					}
