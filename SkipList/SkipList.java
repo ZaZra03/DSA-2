@@ -1,7 +1,7 @@
 /**
- * A SkipList is a data structure that consists of a sequence of 
+ * A skip list is a data structure that consists of a sequence of 
  * sorted linked lists that are linked together by express lanes between nodes.
- * This class represents a Skip List and provides methods to manipulate the list.
+ * This class represents a skip list and provides methods to manipulate the list.
  * 
  * @class SkipList
  * 
