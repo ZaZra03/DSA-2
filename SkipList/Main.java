@@ -5,38 +5,36 @@ import java.io.InputStreamReader;
 public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-  		LinkedList list = new LinkedList();
-  		SkipList skiplist = new SkipList();
+		LinkedList list = new LinkedList();
+		SkipList skiplist = new SkipList();
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		int nodesToSkip=0, number=0;
-		
-		System.out.print("Enter the size of the linked list: ");
-		int size = Integer.parseInt(in.readLine());
-		int value;
-		 for(int i = 0; i < size; i++) {
-			System.out.print("Enter a value: ");
-			value = Integer.parseInt(in.readLine());
-			list.addNode(new Node(value));
-		}
-		 // computes the number of nodes to be skipped
-		 nodesToSkip = (int) squareRoot(list.getSize());
-		 number = (int) squareRoot(list.getSize());
+		try {
+			System.out.print("Enter the size of the linked list: ");
+			int size = Integer.parseInt(in.readLine());
+			int value;
+			for(int i = 0; i < size; i++) {
+				System.out.print("Enter a value: ");
+				value = Integer.parseInt(in.readLine());
+				list.addNode(new Node(value));
+			}
 
-		// Display a menu and read user input until the user chooses to exit.
-		while (true) {
-			// Display menu options.
-			System.out.println("\n1. Create Skip List");
-			System.out.println("2. Add Node");
-			System.out.println("3. Display List from Head");
-			System.out.println("4. Display Skip List from Head");
-			System.out.println("5. Display List from Tail");
-			System.out.println("6. Display Skip List from Tail");
-			System.out.println("7. Search from Head");
-			System.out.println("8. Search from Tail");
-			System.out.println("9. Exit");
-			System.out.print("\n>> ");
+			// computes the number of nodes to be skipped
+			final int nodesToSkip = (int) squareRoot(list.getSize());
 
-			try {
+			// Display a menu and read user input until the user chooses to exit.
+			while (true) {
+				// Display menu options.
+				System.out.println("\n1. Create Skip List");
+				System.out.println("2. Add Node");
+				System.out.println("3. Display List from Head");
+				System.out.println("4. Display Skip List from Head");
+				System.out.println("5. Display List from Tail");
+				System.out.println("6. Display Skip List from Tail");
+				System.out.println("7. Search from Head");
+				System.out.println("8. Search from Tail");
+				System.out.println("9. Exit");
+				System.out.print("\n>> ");
+
 				// Read user input.
 				int choice = Integer.parseInt(in.readLine());
 				System.out.println();
@@ -44,7 +42,7 @@ public class Main {
 				// Execute the selected menu option.
 				switch (choice) {
 				case 1: // Create Skip List
-					createSkipList(skiplist, list, nodesToSkip, number);
+					createSkipList(skiplist, list, nodesToSkip);
 					break;
 
 				case 2: //Add Node
@@ -52,7 +50,7 @@ public class Main {
 					value = Integer.parseInt(in.readLine());
 					addNode(list, skiplist, nodesToSkip, value);
 					break;
-					
+
 				case 3: // Display List from Head
 					list.displayList();
 					break;
@@ -73,10 +71,10 @@ public class Main {
 						System.out.print("Enter a value: ");
 						value = Integer.parseInt(in.readLine());
 						SkipNode currentSkipNode = skiplist.getHead();
-						searchFromHead(list, currentSkipNode, isFound, isFinished, number, value, numNodes, numSkipNodes);
+						searchFromHead(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
 					} else System.out.println("Skip List is empty.");
 					break;
-					
+
 				case 8: // Search from Tail
 					if(skiplist.getHead() != null) {
 						boolean isFound = false, isFinished = false;
@@ -84,36 +82,38 @@ public class Main {
 						System.out.print("Enter a value: ");
 						value = Integer.parseInt(in.readLine());
 						SkipNode currentSkipNode = skiplist.getTail();
-						searchFromTail(list, currentSkipNode, isFound, isFinished, number, value, numNodes, numSkipNodes);
+						searchFromTail(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
 					} else System.out.println("Skip List is empty.");
 					break;
-					
+
 				case 9: // Exit
 					System.exit(0);
 					break;
 				default:
 					System.out.println("Invalid choice!");
 				}
-			} catch (NumberFormatException e) {
-				System.out.println("\nInput must be an integer.");
 			}
-		}
+		} catch (NumberFormatException e) {
+			System.out.println("\nInput must be an integer.");
+		} 
 	}
-	
+
 	static double squareRoot(int num) {
 		double t, sqrtroot=num/2;   
-		do   
-		{  
+		do {  
 			t=sqrtroot;  
 			sqrtroot=(t+(num/t))/2;  
 		}   
 		while((t-sqrtroot)!= 0);  
 		return sqrtroot;  
 	}
-	
-	static void createSkipList(SkipList skiplist, LinkedList list, int nodesToSkip, int number) {
-		if(skiplist.getHead()!=null)
-			System.out.print("\nAlready created a skip list.");
+
+	static void createSkipList(SkipList skiplist, LinkedList list, int nodesToSkip) {
+		if(skiplist.getHead()!=null) {
+			System.out.print("Already created a skip list.");
+			System.out.println();
+		}
+			
 		else {
 			// creates the first node of the skip list
 			SkipNode skipNode = new SkipNode(list.getHead().getData(), list.getHead());
@@ -128,7 +128,7 @@ public class Main {
 						break;
 
 				}
-				
+
 				if(currentNode!=null) {
 					skipNode = new SkipNode(currentNode.getData(), currentNode);
 					skiplist.addNode(skipNode);
@@ -138,7 +138,7 @@ public class Main {
 			System.out.println();
 		}
 	}
-	
+
 	static void addNode(LinkedList list, SkipList skiplist, int nodesToSkip, int value) {
 		if(value < list.getTail().getData()) System.out.println("The value must be greater than " + list.getTail().getData());
 		else {
@@ -159,8 +159,8 @@ public class Main {
 			}
 		} 
 	}
-	
-	static void searchFromHead(LinkedList list, SkipNode currentSkipNode, boolean isFound, boolean isFinished, int number, int value, int numNodes, int numSkipNodes) {
+
+	static void searchFromHead(LinkedList list, SkipNode currentSkipNode, boolean isFound, boolean isFinished, int nodesToSkip, int value, int numNodes, int numSkipNodes) {
 		while(currentSkipNode != null && isFinished != true) {
 			if(currentSkipNode.getData() == value) {
 				System.out.println("Value found.");
@@ -171,10 +171,10 @@ public class Main {
 			}
 			else if (currentSkipNode.getData() < value && currentSkipNode.getNext() != null) {
 				currentSkipNode = currentSkipNode.getNext();
-				numSkipNodes = numSkipNodes + number;
+				numSkipNodes = numSkipNodes + nodesToSkip;
 				numNodes++;
 			}
-			
+
 			else {
 				Node currentNode = currentSkipNode.getBottom();
 				if(currentNode == list.getHead()) {
@@ -183,7 +183,7 @@ public class Main {
 						isFinished = true;
 					}
 				}
-				
+
 				else if(currentNode.getData() > value) {
 					while(currentSkipNode.getPrev().getBottom() != currentNode) {
 						if(currentNode.getData() == value) {
@@ -224,8 +224,8 @@ public class Main {
 			}
 		}
 	}
-	
-	static void searchFromTail(LinkedList list, SkipNode currentSkipNode, boolean isFound, boolean isFinished, int number, int value, int numNodes, int numSkipNodes) {
+
+	static void searchFromTail(LinkedList list, SkipNode currentSkipNode, boolean isFound, boolean isFinished, int nodesToSkip, int value, int numNodes, int numSkipNodes) {
 		while(currentSkipNode != null && isFinished != true) {
 			if(currentSkipNode.getData() == value) {
 				System.out.println("Value found.");
@@ -236,10 +236,10 @@ public class Main {
 			}
 			else if (currentSkipNode.getData() > value && currentSkipNode.getPrev() != null) {
 				currentSkipNode = currentSkipNode.getPrev();
-				numSkipNodes = numSkipNodes + number;
+				numSkipNodes = numSkipNodes + nodesToSkip;
 				numNodes++;
 			}
-			
+
 			else {
 				Node currentNode = currentSkipNode.getBottom();
 				if(currentNode == list.getTail()) {
@@ -248,7 +248,7 @@ public class Main {
 						isFinished = true;
 					}
 				}
-				
+
 				else if(currentNode.getData() < value && currentSkipNode.getNext() == null) {
 					while(currentNode != null) {
 						if(currentNode.getData() == value) {
@@ -268,7 +268,7 @@ public class Main {
 						isFinished = true;
 					}
 				}
-				
+
 				else if(currentNode.getData() < value) {
 					while(currentSkipNode.getNext().getBottom() != currentNode) {
 						if(currentNode.getData() == value) {
