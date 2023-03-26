@@ -143,6 +143,7 @@ public class Main {
 		if(value < list.getTail().getData()) System.out.println("The value must be greater than " + list.getTail().getData());
 		else {
 			list.addNode(new Node(value));
+			System.out.println("Node added successfully!");
 			Node currentNode = skiplist.getTail().getBottom();
 			while(currentNode!=null) {
 				for(int i=1; i <= nodesToSkip+1; i++) {
