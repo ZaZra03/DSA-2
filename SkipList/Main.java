@@ -4,103 +4,113 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		LinkedList list = new LinkedList();
 		SkipList skiplist = new SkipList();
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			System.out.print("Enter the size of the linked list: ");
 			int size = Integer.parseInt(in.readLine());
-			int value;
-			for(int i = 0; i < size; i++) {
-				System.out.print("Enter a value: ");
-				value = Integer.parseInt(in.readLine());
-				list.addNode(new Node(value));
-			}
-
-			// computes the number of nodes to be skipped
-			final int nodesToSkip = (int) squareRoot(list.getSize());
-
-			// Display a menu and read user input until the user chooses to exit.
-			while (true) {
-				// Display menu options.
-				System.out.println("\n1. Create Skip List");
-				System.out.println("2. Add Node");
-				System.out.println("3. Display List from Head");
-				System.out.println("4. Display Skip List from Head");
-				System.out.println("5. Display List from Tail");
-				System.out.println("6. Display Skip List from Tail");
-				System.out.println("7. Search from Head");
-				System.out.println("8. Search from Tail");
-				System.out.println("9. Exit");
-				System.out.print("\n>> ");
-
-				// Read user input.
-				int choice = Integer.parseInt(in.readLine());
-				System.out.println();
-
-				// Execute the selected menu option.
-				switch (choice) {
-				case 1: // Create Skip List
-					createSkipList(skiplist, list, nodesToSkip);
-					break;
-
-				case 2: //Add Node
+			if(size < 1) System.out.println("The size of the list cannot be less than 1");
+			else {
+				int value;
+				for(int i = 0; i < size; i++) {
 					System.out.print("Enter a value: ");
 					value = Integer.parseInt(in.readLine());
-					addNode(list, skiplist, nodesToSkip, value);
-					break;
+					list.addNode(new Node(value));
+				}
+				// computes the number of nodes to be skipped
+				final int nodesToSkip = (int) squareRoot(list.getSize());
 
-				case 3: // Display List from Head
-					list.displayList();
-					break;
-				case 4: // Display Skip List from Head
-					skiplist.displayList();
-					break;
-				case 5: // Display List from Tail
-					list.displayReversedList();
-					break;
-				case 6: // Display Skip List from Tail
-					skiplist.displayReversedList();
-					break;
+				// Display a menu and read user input until the user chooses to exit.
+				while (true) {
+					// Display menu options.
+					System.out.println("\n[1] Create Skip List");
+					System.out.println("[2] Add Node");
+					System.out.println("[3] Display List from Head");
+					System.out.println("[4] Display Skip List from Head");
+					System.out.println("[5] Display List from Tail");
+					System.out.println("[6] Display Skip List from Tail");
+					System.out.println("[7] Search from Head");
+					System.out.println("[8] Search from Tail");
+					System.out.println("[9] Exit");
+					System.out.print("\n>> ");
 
-				case 7: // Search from Head
-					if(skiplist.getHead() != null) {
-						boolean isFound = false, isFinished = false;
-						int numNodes = 1, numSkipNodes = 0;
+					// Read user input.
+					int choice = Integer.parseInt(in.readLine());
+					System.out.println();
+
+					// Execute the selected menu option.
+					switch (choice) {
+					case 1: // Create Skip List
+						createSkipList(skiplist, list, nodesToSkip);
+						break;
+
+					case 2: //Add Node
 						System.out.print("Enter a value: ");
 						value = Integer.parseInt(in.readLine());
-						SkipNode currentSkipNode = skiplist.getHead();
-						searchFromHead(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
-					} else System.out.println("Skip List is empty.");
-					break;
+						addNode(list, skiplist, nodesToSkip, value);
+						break;
 
-				case 8: // Search from Tail
-					if(skiplist.getHead() != null) {
-						boolean isFound = false, isFinished = false;
-						int numNodes = 1, numSkipNodes = 0;
-						System.out.print("Enter a value: ");
-						value = Integer.parseInt(in.readLine());
-						SkipNode currentSkipNode = skiplist.getTail();
-						searchFromTail(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
-					} else System.out.println("Skip List is empty.");
-					break;
+					case 3: // Display List from Head
+						list.displayList();
+						break;
+					case 4: // Display Skip List from Head
+						skiplist.displayList();
+						break;
+					case 5: // Display List from Tail
+						list.displayReversedList();
+						break;
+					case 6: // Display Skip List from Tail
+						skiplist.displayReversedList();
+						break;
 
-				case 9: // Exit
-					System.exit(0);
-					break;
-				default:
-					System.out.println("Invalid choice!");
+					case 7: // Search from Head
+						if(skiplist.getHead() != null) {
+							boolean isFound = false, isFinished = false;
+							int numNodes = 1, numSkipNodes = 0;
+							System.out.print("Enter a value: ");
+							value = Integer.parseInt(in.readLine());
+							SkipNode currentSkipNode = skiplist.getHead();
+							searchFromHead(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
+						} else System.out.println("Skip List is empty.");
+						break;
+
+					case 8: // Search from Tail
+						if(skiplist.getHead() != null) {
+							boolean isFound = false, isFinished = false;
+							int numNodes = 1, numSkipNodes = 0;
+							System.out.print("Enter a value: ");
+							value = Integer.parseInt(in.readLine());
+							SkipNode currentSkipNode = skiplist.getTail();
+							searchFromTail(list, currentSkipNode, isFound, isFinished, nodesToSkip, value, numNodes, numSkipNodes);
+						} else System.out.println("Skip List is empty.");
+						break;
+
+					case 9: // Exit
+						System.out.print("\nProgram will be terminated");
+						for (int i = 0; i < 3; i++) {
+							Thread.sleep(1000);
+							System.out.print(".");
+						}
+						System.out.print("\nProgram terminated.");
+						System.exit(0);
+						break;
+					default:
+						System.out.println("Invalid choice!");
+					}
 				}
 			}
+
 		} catch (NumberFormatException e) {
 			System.out.println("\nInput must be an integer.");
 		} 
 	}
 
 	static double squareRoot(int num) {
-		double t, sqrtroot=num/2;   
-		do {  
+		double t, sqrtroot=num/2; 
+		do {
+			if(num == 1) return 1;
 			t=sqrtroot;  
 			sqrtroot=(t+(num/t))/2;  
 		}   
