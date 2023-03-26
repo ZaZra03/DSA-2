@@ -19,6 +19,7 @@
 */
 
 public class SkipList {
+	//Class fields
 	private SkipNode head;
 	private SkipNode tail;
 	
