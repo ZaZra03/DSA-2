@@ -277,7 +277,6 @@ public class Main {
 	 * @param list            the SkipList to search in
 	 * @param currentSkipNode the current SkipNode being evaluated
 	 * @param isFound         a boolean indicating whether the value has been found
-	 * @param isFinished      a boolean indicating whether the search is finished
 	 * @param nodesToSkip     the number of nodes to skip when moving to the next
 	 *                        SkipNode
 	 * @param value           the value to search for
@@ -289,6 +288,8 @@ public class Main {
 		Node currentNode = currentSkipNode.getBottom();
 		int temp = currentSkipNode.getNext().getData();
 		while (currentNode != null) {
+			if (value < list.getHead().getData() || value > list.getTail().getData())
+				break;
 			if (currentSkipNode.getData() == value || currentNode.getData() == value) {
 				System.out.println("Value found.");
 				System.out.println("Number of Traversed Nodes: " + numNodes);
@@ -330,7 +331,6 @@ public class Main {
 	 * @param list            the SkipList to search in
 	 * @param currentSkipNode the current SkipNode being evaluated
 	 * @param isFound         a boolean indicating whether the value has been found
-	 * @param isFinished      a boolean indicating whether the search is finished
 	 * @param nodesToSkip     the number of nodes to skip when moving to the next
 	 *                        SkipNode
 	 * @param value           the value to search for
