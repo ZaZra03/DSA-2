@@ -138,6 +138,10 @@ public class Stack {
 	
 	public void displayHistory(Stack stack) {
 		Node currentNode = stack.getTail();
+		displayList();
+		System.out.println();
+		System.out.println("Previous states of the stack data structure: ");
+		System.out.println();
 		while (currentNode != null) {
 			System.out.println(currentNode.getMessage());
 			currentNode = currentNode.getPrev();
