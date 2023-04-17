@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="HashTable"/>
 	<classpathentry kind="src" path="Union-Find"/>
 	<classpathentry kind="src" path="SkipList"/>
+	<classpathentry kind="src" path="PersistentStack"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
