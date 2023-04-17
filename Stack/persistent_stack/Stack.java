@@ -112,7 +112,6 @@ public class Stack {
 				temp += currentNode.getData();
 				first = false;
 			} else {
-				System.out.print(", " + currentNode.getData());
 				temp += ", " + currentNode.getData();
 			}
 			currentNode = currentNode.getNext();
