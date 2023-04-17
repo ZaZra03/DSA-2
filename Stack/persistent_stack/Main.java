@@ -9,6 +9,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		Stack stack1 = new Stack();
+		Stack stack2 = new Stack();
 		int value;
 		try {
 			while (true) {
@@ -29,7 +30,7 @@ public class Main {
 				case 1: // Add Node to Stack
 					System.out.print("Enter an integer number: ");
 					value = Integer.parseInt(in.readLine());
-					stack1.push(new Node(value));
+					stack1.push(new Node(value), stack2);
 					System.out.println("\nThe item was added successfully!");
 					System.out.println();
 					stack1.displayList();
@@ -38,13 +39,13 @@ public class Main {
 
 				case 2: //Delete Node to Stack
 					if(stack1.getHead() != null) {
-						stack1.pop();
+						stack1.pop(stack2);
 					} else System.out.println("Stack is empty.");
 					break;
 
 				case 3: // Display the History
 					if(stack1.getHead() != null) {
-						stack1.displayHistory(stack1);
+						stack1.displayHistory(stack2);
 					} else System.out.println("Stack is empty.");
 					break;
 

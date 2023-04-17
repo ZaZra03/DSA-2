@@ -23,7 +23,7 @@ public class Node {
 	private int data;
 	private Node next;
 	private Node prev;
-	private boolean isDeleted = false; 
+	private String message; 
 
 	// Constructor
 	public Node() {
@@ -44,8 +44,8 @@ public class Node {
 		return next;
 	}
 	
-	public boolean getStatus() {
-		return isDeleted;
+	public String getMessage() {
+		return message;
 	}
 
 	public Node getPrev() {
@@ -60,7 +60,7 @@ public class Node {
 		this.next = next;
 	}
 	
-	public void setStatus(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

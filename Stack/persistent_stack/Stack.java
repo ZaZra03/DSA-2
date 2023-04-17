@@ -39,6 +39,14 @@ public class Stack {
 		return this.tail;
 	}
 	
+	public void setHead(Node head) {
+		this.head = head;
+	}
+	
+	public void setTail(Node tail) {
+		this.tail = tail;
+	}
+	
 	/**
 	 * The addNode method adds a new node to the end of the linked list. If the
 	 * linked list is empty, the head and tail are set to the new node. Otherwise,
@@ -46,16 +54,24 @@ public class Stack {
 	 * 
 	 * @param node The node to be added to the linked list.
 	 */
-	public void push(Node node) {
+	public void push(Node node, Stack stack) {
+		Node temp = new Node(node.getData());
 		if(head == null) {
 			head = node;
 			tail = node;
+			stack.setHead(temp);
+			stack.setTail(temp);
+			stack.getHead().setMessage("Added " + stack.getHead().getData() + " to the stack\nStack item(s): " + stack.getHead().getData());
 		}
 		
 		else {
-			tail.setNext(node);;
+			tail.setNext(node);
 			node.setPrev(tail);
 			tail = node;
+			stack.getTail().setNext(temp);
+			temp.setPrev(stack.getTail());
+			stack.setTail(temp);
+			temp.setMessage("Added " + stack.getTail().getData() + " to the stack\nStack item(s): " + getData());
 		}
 	}
 
@@ -68,8 +84,14 @@ public class Stack {
 	 * 
 	 * @param node The node to be deleted from the linked list.
 	 */
-	public void pop() {
-		tail.setStatus(true);
+	public void pop(Stack stack) {
+		Node temp = new Node(tail.getData());
+		tail = tail.getPrev();
+		tail.setNext(null);
+		stack.getTail().setNext(temp);
+		temp.setPrev(stack.getTail());
+		stack.setTail(temp);
+		temp.setMessage("Removed " + temp.getData() + " from the stack\nStack item(s): " + getData());
 		System.out.println("The recently added item was deleted!");
 		System.out.println();
 		displayList();
@@ -80,15 +102,29 @@ public class Stack {
 	 * The displayList method displays the nodes in the linked list. The method
 	 * iterates through the linked list and prints the data value of each node.
 	 */
+	
+	public String getData() {
+		String temp = "";
+		Node currentNode = head;
+		boolean first = true;
+		while (currentNode != null) {
+			if (first) {
+				temp += currentNode.getData();
+				first = false;
+			} else {
+				System.out.print(", " + currentNode.getData());
+				temp += ", " + currentNode.getData();
+			}
+			currentNode = currentNode.getNext();
+		}
+		return temp;
+	}
+	
 	public void displayList() {
 		Node currentNode = head;
 		boolean first = true;
 		System.out.print("Current item(s) in the stack: ");
 		while (currentNode != null) {
-			if(currentNode.getStatus() == true) {
-				currentNode = currentNode.getNext();
-				continue;
-			} 
 			if (first) {
 				System.out.print(currentNode.getData());
 				first = false;
@@ -100,76 +136,13 @@ public class Stack {
 		System.out.println();
 	}
 	
-	public void displayHistory(Stack stack1) {
-		displayList();
-		System.out.println();
-		System.out.println("Previous states of the stack data structure:");
-		Node temp = stack1.getTail();
-		while(temp != null) {
-			if(temp.getStatus() == false) {
-				System.out.println();
-				System.out.println("Added " + temp.getData() + " to the stack");
-				System.out.print("Stack item(s): ");
-				Node currentNode = stack1.getHead();
-				boolean first = true;
-				while (currentNode != temp.getNext()) {
-					if (first) {
-						System.out.print(currentNode.getData());
-						first = false;
-					} else {
-						System.out.print(", " + currentNode.getData());
-					}
-					currentNode = currentNode.getNext();
-				}
-				System.out.println();
-				temp = temp.getPrev();
-			} else {
-				System.out.println();
-				System.out.println("Removed " + temp.getData() + " from the stack");
-				
-				Node currentNode = head;
-				boolean first = true;
-				System.out.print("Stack item(s): ");
-				while (currentNode != null) {
-					if(currentNode.getStatus() == true) {
-						currentNode = currentNode.getNext();
-						continue;
-					} 
-					if (first) {
-						System.out.print(currentNode.getData());
-						first = false;
-					} else {
-						System.out.print(", " + currentNode.getData());
-					}
-					currentNode = currentNode.getNext();
-				}
-				System.out.println();
-				
-				System.out.println();
-				System.out.println("Added " + temp.getData() + " to the stack");
-				currentNode = head;
-				first = true;
-				System.out.print("Stack item(s): ");
-				while (currentNode != null) {
-					if(currentNode.getStatus() == true) {
-						currentNode = currentNode.getNext();
-						continue;
-					} 
-					if (first) {
-						System.out.print(currentNode.getData());
-						first = false;
-					} else {
-						System.out.print(", " + currentNode.getData());
-					}
-					currentNode = currentNode.getNext();
-				}
-				System.out.print(", " + temp.getData());
-				System.out.println();
-				temp = temp.getPrev();
-			}
-			
+	public void displayHistory(Stack stack) {
+		Node currentNode = stack.getTail();
+		while (currentNode != null) {
+			System.out.println(currentNode.getMessage());
+			currentNode = currentNode.getPrev();
+			System.out.println();
 		}
-		System.out.println();
 	}
 }
 
