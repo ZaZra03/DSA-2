@@ -23,6 +23,7 @@ public class Stack {
 	private Node head;
 	private Node tail;
 
+	// Getters and Setters
 	public Node getHead() {
 		return this.head;
 	}
@@ -37,50 +38,6 @@ public class Stack {
 
 	public void setTail(Node tail) {
 		this.tail = tail;
-	}
-
-	public void push(Node node, Stack stack) {
-		Node temp = new Node(node.getData());
-		if (head == null) {
-			head = node;
-			tail = node;
-			if (stack.getHead() == null) {
-				stack.setHead(temp);
-				stack.setTail(temp);
-			} else {
-				stack.getTail().setNext(temp);
-				temp.setPrev(stack.getTail());
-				stack.setTail(temp);
-			}
-			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
-		} else {
-			tail.setNext(node);
-			node.setPrev(tail);
-			tail = node;
-			stack.getTail().setNext(temp);
-			temp.setPrev(stack.getTail());
-			stack.setTail(temp);
-			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
-		}
-	}
-
-	public void pop(Stack stack) {
-		Node temp = new Node(tail.getData());
-		if (tail == head) {
-			head = null;
-			tail = null;
-		} else {
-			tail = tail.getPrev();
-			tail.setNext(null);
-		}
-		stack.getTail().setNext(temp);
-		temp.setPrev(stack.getTail());
-		stack.setTail(temp);
-		temp.setMessage("Removed " + temp.getData() + " from the stack\nStack item(s): " + getData());
-		System.out.println("The recently added item was deleted!");
-		System.out.println();
-		displayList();
-		System.out.println();
 	}
 
 	public String getData() {
@@ -99,6 +56,75 @@ public class Stack {
 		return temp;
 	}
 
+	/**
+	 * Method to push a node onto the stack.
+	 * 
+	 * @param node  the node to push onto the stack.
+	 * @param stack the history stack.
+	 */
+	public void push(Node node, Stack stack) {
+		Node temp = new Node(node.getData());
+		if (head == null) {
+			// If the stack is empty, set the head and tail to the new node.
+			head = node;
+			tail = node;
+			if (stack.getHead() == null) {
+				// If the history stack is empty, set its head and tail to the new node.
+				stack.setHead(temp);
+				stack.setTail(temp);
+			} else {
+				// Otherwise, add the new node to the end of the history stack.
+				stack.getTail().setNext(temp);
+				temp.setPrev(stack.getTail());
+				stack.setTail(temp);
+			}
+			// Set the message of the new node in the history stack.
+			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
+		} else {
+			// If the stack is not empty, add the new node to the end of the stack.
+			tail.setNext(node);
+			node.setPrev(tail);
+			tail = node;
+			// Add a new node to the end of the history stack.
+			stack.getTail().setNext(temp);
+			temp.setPrev(stack.getTail());
+			stack.setTail(temp);
+			// Set the message of the new node in the history stack.
+			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
+		}
+	}
+
+	/**
+	 * Method to pop a node from the stack.
+	 *
+	 * @param stack the history stack.
+	 */
+	public void pop(Stack stack) {
+		Node temp = new Node(tail.getData());
+		if (tail == head) {
+			// If there is only one element in the stack, set the head and tail to null.
+			head = null;
+			tail = null;
+		} else {
+			// Otherwise, remove the last element from the stack.
+			tail = tail.getPrev();
+			tail.setNext(null);
+		}
+		// Add a new node to the end of the history stack.
+		stack.getTail().setNext(temp);
+		temp.setPrev(stack.getTail());
+		stack.setTail(temp);
+		// Set the message of the new node in the history stack.
+		temp.setMessage("Removed " + temp.getData() + " from the stack\nStack item(s): " + getData());
+		System.out.println("The recently added item was deleted!");
+		System.out.println();
+		displayList();
+		System.out.println();
+	}
+
+	/**
+	 * Method to display the current items in the stack.
+	 */
 	public void displayList() {
 		Node currentNode = head;
 		boolean first = true;
@@ -120,6 +146,11 @@ public class Stack {
 		System.out.println();
 	}
 
+	/**
+	 * Method to display the history of the stack.
+	 *
+	 * @param stack the history stack.
+	 */
 	public void displayHistory(Stack stack) {
 		Node currentNode = stack.getTail();
 		displayList();
