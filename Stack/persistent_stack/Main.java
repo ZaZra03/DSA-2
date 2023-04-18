@@ -1,4 +1,22 @@
-package persistent_stack;
+
+/**
+ * The Main class contains the main method and provides a menu for the user to
+ * interact with a stack data structure. The user can choose to push a new node
+ * onto the stack, pop a node from the stack, view the history of the stack, or
+ * exit the program.
+ * 
+ * @class Main
+ * 
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Hans Neil Emnacin
+ * @author Marc Ryzon Elomina
+ * @author Mark Cedrick De Vera
+ * @author Rizaldy Cantalejo
+ * 
+ * @see Node
+ * @see Stack
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +45,7 @@ public class Main {
 
 				// Execute the selected menu option.
 				switch (choice) {
-				case 1: // Add Node to Stack
+				case 1: // Push a Node into the Stack
 					System.out.print("Enter an integer number: ");
 					value = Integer.parseInt(in.readLine());
 					stack1.push(new Node(value), stack2);
@@ -37,16 +55,18 @@ public class Main {
 					System.out.println();
 					break;
 
-				case 2: //Delete Node to Stack
-					if(stack1.getHead() != null) {
+				case 2: // Pop a Node from the Stack
+					if (stack1.getHead() != null) {
 						stack1.pop(stack2);
-					} else System.out.println("Stack is empty.");
+					} else
+						System.out.println("Stack is empty.");
 					break;
 
 				case 3: // Display the History
-					if(stack2.getHead() != null) {
+					if (stack2.getHead() != null) {
 						stack1.displayHistory(stack2);
-					} else System.out.println("History is empty.");
+					} else
+						System.out.println("History is empty.");
 					break;
 
 				case 4: // Exit
@@ -65,6 +85,6 @@ public class Main {
 
 		} catch (NumberFormatException e) {
 			System.out.println("\nInput must be an integer.");
-		} 
+		}
 	}
 }
