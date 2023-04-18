@@ -86,8 +86,13 @@ public class Stack {
 	 */
 	public void pop(Stack stack) {
 		Node temp = new Node(tail.getData());
-		tail = tail.getPrev();
-		tail.setNext(null);
+		if(tail == head) {
+			head = null;
+			tail = null;
+		} else {
+			tail = tail.getPrev();
+			tail.setNext(null);
+		}
 		stack.getTail().setNext(temp);
 		temp.setPrev(stack.getTail());
 		stack.setTail(temp);
@@ -122,6 +127,11 @@ public class Stack {
 	public void displayList() {
 		Node currentNode = head;
 		boolean first = true;
+		if(currentNode == null) {
+			System.out.println("Stack is empty.");
+			return;
+		} 
+		
 		System.out.print("Current item(s) in the stack: ");
 		while (currentNode != null) {
 			if (first) {

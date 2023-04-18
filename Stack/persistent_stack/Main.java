@@ -44,9 +44,9 @@ public class Main {
 					break;
 
 				case 3: // Display the History
-					if(stack1.getHead() != null) {
+					if(stack2.getHead() != null) {
 						stack1.displayHistory(stack2);
-					} else System.out.println("Stack is empty.");
+					} else System.out.println("History is empty.");
 					break;
 
 				case 4: // Exit
