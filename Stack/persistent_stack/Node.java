@@ -1,8 +1,8 @@
-package persistent_stack;
-
 /**
  * The Node class represents a node in a linked list. It contains an integer
- * value (data) and a reference to the next node in the list (next).
+ * value (data) and references to the next and previous nodes in the list (next
+ * and prev). This class is used by the Stack class to implement a stack data
+ * structure using a linked list.
  * 
  * @class Node
  * 
@@ -13,8 +13,7 @@ package persistent_stack;
  * @author Mark Cedrick De Vera
  * @author Rizaldy Cantalejo
  * 
- * @see LinkedList
- * @see HashTable
+ * @see Stack
  * @see Main
  */
 
@@ -23,7 +22,7 @@ public class Node {
 	private int data;
 	private Node next;
 	private Node prev;
-	private String message; 
+	private String message;
 
 	// Constructor
 	public Node() {
@@ -43,7 +42,7 @@ public class Node {
 	public Node getNext() {
 		return next;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -55,11 +54,11 @@ public class Node {
 	public void setPrev(Node prev) {
 		this.prev = prev;
 	}
-	
+
 	public void setNext(Node next) {
 		this.next = next;
 	}
-	
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
