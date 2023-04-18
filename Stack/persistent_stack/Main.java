@@ -39,9 +39,9 @@ public class Main {
 				// Display menu options.
 				System.out.println("MENU");
 				System.out.println("\n[1] Push");
-				System.out.println("\n[2] Pop");
-				System.out.println("\n[3] History");
-				System.out.println("\n[4] Exit");
+				System.out.println("[2] Pop");
+				System.out.println("[3] History");
+				System.out.println("[4] Exit");
 				System.out.print("\n>> ");
 
 				// Read user input.
