@@ -1,14 +1,11 @@
-package persistent_stack;
-
 /**
- * The LinkedList class provides an implementation of a singly linked list,
- * which is a linear data structure where each element is a separate object
- * called a node. Each node contains a reference to an object and a reference to
- * the next node in the list. This class contains methods for adding a new node
- * to the end of the list, deleting a specific node, searching for a specific
- * node, and displaying the contents of the list.
+ * The Stack class provides an implementation of a stack data structure using a
+ * linked list. A stack is a linear data structure that follows the Last In
+ * First Out (LIFO) principle. This class contains methods for adding a new node
+ * to the top of the stack (push), removing a node from the top of the stack
+ * (pop), and displaying the contents of the stack.
  * 
- * @class LinkedList
+ * @class Stack
  * 
  * @author Eugene Lawrence Autos
  * @author Ezra Micah Malsi
@@ -16,6 +13,7 @@ package persistent_stack;
  * @author Marc Ryzon Elomina
  * @author Mark Cedrick De Vera
  * @author Rizaldy Cantalejo
+ * 
  * @see Node
  * @see Main
  */
@@ -25,68 +23,50 @@ public class Stack {
 	private Node head;
 	private Node tail;
 
-	/**
-	 * The getHead method returns the head of the linked list.
-	 * 
-	 * @return The head of the linked list.
-	 */
 	public Node getHead() {
 		return this.head;
 	}
 
-	
 	public Node getTail() {
 		return this.tail;
 	}
-	
+
 	public void setHead(Node head) {
 		this.head = head;
 	}
-	
+
 	public void setTail(Node tail) {
 		this.tail = tail;
 	}
-	
-	/**
-	 * The addNode method adds a new node to the end of the linked list. If the
-	 * linked list is empty, the head and tail are set to the new node. Otherwise,
-	 * the new node is added to the end of the list and the tail is updated.
-	 * 
-	 * @param node The node to be added to the linked list.
-	 */
+
 	public void push(Node node, Stack stack) {
 		Node temp = new Node(node.getData());
-		if(head == null) {
+		if (head == null) {
 			head = node;
 			tail = node;
-			stack.setHead(temp);
-			stack.setTail(temp);
-			stack.getHead().setMessage("Added " + stack.getHead().getData() + " to the stack\nStack item(s): " + stack.getHead().getData());
-		}
-		
-		else {
+			if (stack.getHead() == null) {
+				stack.setHead(temp);
+				stack.setTail(temp);
+			} else {
+				stack.getTail().setNext(temp);
+				temp.setPrev(stack.getTail());
+				stack.setTail(temp);
+			}
+			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
+		} else {
 			tail.setNext(node);
 			node.setPrev(tail);
 			tail = node;
 			stack.getTail().setNext(temp);
 			temp.setPrev(stack.getTail());
 			stack.setTail(temp);
-			temp.setMessage("Added " + stack.getTail().getData() + " to the stack\nStack item(s): " + getData());
+			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
 		}
 	}
 
-	/**
-	 * The deleteNode method accepts a node to be deleted from the linked list. The
-	 * method searches for the node and removes it from the linked list. If the node
-	 * to be deleted is the head, the head is updated to the next node. If the node
-	 * to be deleted is not the head, the previous node's next pointer is updated to
-	 * skip the node to be deleted.
-	 * 
-	 * @param node The node to be deleted from the linked list.
-	 */
 	public void pop(Stack stack) {
 		Node temp = new Node(tail.getData());
-		if(tail == head) {
+		if (tail == head) {
 			head = null;
 			tail = null;
 		} else {
@@ -103,11 +83,6 @@ public class Stack {
 		System.out.println();
 	}
 
-	/**
-	 * The displayList method displays the nodes in the linked list. The method
-	 * iterates through the linked list and prints the data value of each node.
-	 */
-	
 	public String getData() {
 		String temp = "";
 		Node currentNode = head;
@@ -123,15 +98,15 @@ public class Stack {
 		}
 		return temp;
 	}
-	
+
 	public void displayList() {
 		Node currentNode = head;
 		boolean first = true;
-		if(currentNode == null) {
+		if (currentNode == null) {
 			System.out.println("Stack is empty.");
 			return;
-		} 
-		
+		}
+
 		System.out.print("Current item(s) in the stack: ");
 		while (currentNode != null) {
 			if (first) {
@@ -144,7 +119,7 @@ public class Stack {
 		}
 		System.out.println();
 	}
-	
+
 	public void displayHistory(Stack stack) {
 		Node currentNode = stack.getTail();
 		displayList();
@@ -158,4 +133,3 @@ public class Stack {
 		}
 	}
 }
-
