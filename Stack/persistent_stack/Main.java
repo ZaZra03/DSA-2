@@ -24,6 +24,11 @@ import java.io.InputStreamReader;
 
 public class Main {
 
+	/**
+	 * The main method of the program.
+	 *
+	 * @param args command-line arguments (not used)
+	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		Stack stack1 = new Stack();
@@ -54,21 +59,18 @@ public class Main {
 					stack1.displayList();
 					System.out.println();
 					break;
-
 				case 2: // Pop a Node from the Stack
 					if (stack1.getHead() != null) {
 						stack1.pop(stack2);
 					} else
 						System.out.println("Stack is empty.");
 					break;
-
 				case 3: // Display the History
 					if (stack2.getHead() != null) {
 						stack1.displayHistory(stack2);
 					} else
 						System.out.println("History is empty.");
 					break;
-
 				case 4: // Exit
 					System.out.print("\nProgram will be terminated");
 					for (int i = 0; i < 3; i++) {
