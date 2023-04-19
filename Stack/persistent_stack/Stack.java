@@ -20,29 +20,29 @@
 
 public class Stack {
 	// Class fields
-	private Node head;
-	private Node tail;
+	private Node bottom;
+	private Node top;
 
 	// Getters and Setters
-	public Node getHead() {
-		return this.head;
+	public Node getBottom() {
+		return this.bottom;
 	}
 
-	public Node getTail() {
-		return this.tail;
+	public Node getTop() {
+		return this.top;
 	}
 
-	public void setHead(Node head) {
-		this.head = head;
+	public void setBottom(Node bottom) {
+		this.bottom = bottom;
 	}
 
-	public void setTail(Node tail) {
-		this.tail = tail;
+	public void setTop(Node top) {
+		this.top = top;
 	}
 
 	public String getData() {
 		String temp = "";
-		Node currentNode = head;
+		Node currentNode = bottom;
 		boolean first = true;
 		while (currentNode != null) {
 			if (first) {
@@ -64,31 +64,31 @@ public class Stack {
 	 */
 	public void push(Node node, Stack stack) {
 		Node temp = new Node(node.getData());
-		if (head == null) {
-			// If the stack is empty, set the head and tail to the new node.
-			head = node;
-			tail = node;
-			if (stack.getHead() == null) {
-				// If the history stack is empty, set its head and tail to the new node.
-				stack.setHead(temp);
-				stack.setTail(temp);
+		if (bottom == null) {
+			// If the stack is empty, set the bottom and top to the new node.
+			bottom = node;
+			top = node;
+			if (stack.getBottom() == null) {
+				// If the history stack is empty, set its bottom and top to the new node.
+				stack.setBottom(temp);
+				stack.setTop(temp);
 			} else {
 				// Otherwise, add the new node to the end of the history stack.
-				stack.getTail().setNext(temp);
-				temp.setPrev(stack.getTail());
-				stack.setTail(temp);
+				stack.getTop().setNext(temp);
+				temp.setPrev(stack.getTop());
+				stack.setTop(temp);
 			}
 			// Set the message of the new node in the history stack.
 			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
 		} else {
 			// If the stack is not empty, add the new node to the end of the stack.
-			tail.setNext(node);
-			node.setPrev(tail);
-			tail = node;
+			top.setNext(node);
+			node.setPrev(top);
+			top = node;
 			// Add a new node to the end of the history stack.
-			stack.getTail().setNext(temp);
-			temp.setPrev(stack.getTail());
-			stack.setTail(temp);
+			stack.getTop().setNext(temp);
+			temp.setPrev(stack.getTop());
+			stack.setTop(temp);
 			// Set the message of the new node in the history stack.
 			temp.setMessage("Added " + temp.getData() + " to the stack\nStack item(s): " + getData());
 		}
@@ -100,20 +100,20 @@ public class Stack {
 	 * @param stack the history stack.
 	 */
 	public void pop(Stack stack) {
-		Node temp = new Node(tail.getData());
-		if (tail == head) {
-			// If there is only one element in the stack, set the head and tail to null.
-			head = null;
-			tail = null;
+		Node temp = new Node(top.getData());
+		if (top == bottom) {
+			// If there is only one element in the stack, set the bottom and top to null.
+			bottom = null;
+			top = null;
 		} else {
 			// Otherwise, remove the last element from the stack.
-			tail = tail.getPrev();
-			tail.setNext(null);
+			top = top.getPrev();
+			top.setNext(null);
 		}
 		// Add a new node to the end of the history stack.
-		stack.getTail().setNext(temp);
-		temp.setPrev(stack.getTail());
-		stack.setTail(temp);
+		stack.getTop().setNext(temp);
+		temp.setPrev(stack.getTop());
+		stack.setTop(temp);
 		// Set the message of the new node in the history stack.
 		temp.setMessage("Removed " + temp.getData() + " from the stack\nStack item(s): " + getData());
 		System.out.println("The recently added item was deleted!");
@@ -126,7 +126,7 @@ public class Stack {
 	 * Method to display the current items in the stack.
 	 */
 	public void displayList() {
-		Node currentNode = head;
+		Node currentNode = bottom;
 		boolean first = true;
 		if (currentNode == null) {
 			System.out.println("Stack is empty.");
@@ -152,7 +152,7 @@ public class Stack {
 	 * @param stack the history stack.
 	 */
 	public void displayHistory(Stack stack) {
-		Node currentNode = stack.getTail();
+		Node currentNode = stack.getTop();
 		displayList();
 		System.out.println();
 		System.out.println("Previous states of the stack data structure: ");
