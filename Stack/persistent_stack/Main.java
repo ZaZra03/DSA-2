@@ -34,16 +34,16 @@ public class Main {
 		Stack stack1 = new Stack();
 		Stack stack2 = new Stack();
 		int value;
-		try {
-			while (true) {
-				// Display menu options.
-				System.out.println("MENU");
-				System.out.println("\n[1] Push");
-				System.out.println("[2] Pop");
-				System.out.println("[3] History");
-				System.out.println("[4] Exit");
-				System.out.print("\n>> ");
 
+		while (true) {
+			// Display menu options.
+			System.out.println("MENU");
+			System.out.println("\n[1] Push");
+			System.out.println("[2] Pop");
+			System.out.println("[3] History");
+			System.out.println("[4] Exit");
+			System.out.print("\n>> ");
+			try {
 				// Read user input.
 				int choice = Integer.parseInt(in.readLine());
 				System.out.println();
@@ -81,12 +81,12 @@ public class Main {
 					System.exit(0);
 					break;
 				default:
-					System.out.println("Invalid choice!");
+					System.out.println("Invalid choice!\n");
 				}
+			} catch (NumberFormatException e) {
+				System.out.println("\nInput must be an integer.\n");
 			}
-
-		} catch (NumberFormatException e) {
-			System.out.println("\nInput must be an integer.");
 		}
+
 	}
 }
