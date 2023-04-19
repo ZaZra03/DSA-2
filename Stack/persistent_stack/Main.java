@@ -60,13 +60,13 @@ public class Main {
 					System.out.println();
 					break;
 				case 2: // Pop a Node from the Stack
-					if (stack1.getHead() != null) {
+					if (stack1.getBottom() != null) {
 						stack1.pop(stack2);
 					} else
 						System.out.println("Stack is empty.");
 					break;
 				case 3: // Display the History
-					if (stack2.getHead() != null) {
+					if (stack2.getBottom() != null) {
 						stack1.displayHistory(stack2);
 					} else
 						System.out.println("History is empty.");
