@@ -111,13 +111,13 @@ public class LinkedList {
 	public String nodeHistory(Node node) {
 		String temp = "";
 		int frontData = node.getData();
-		if(size == 1) return temp+=node.getData();
+		if(node.getNextVersion() == null) return temp+=node.getData();
 		node = node.getNextVersion();
 		while(node != null) {
 			temp = temp + node.getData() + " ,";
 			node = node.getNextVersion();
 		}
-		temp += frontData;
+		temp = temp + " " +frontData;
 		return temp;
 	}
 	
