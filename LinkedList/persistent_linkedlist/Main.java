@@ -1,3 +1,23 @@
+
+/**
+ * The Main class contains the main method. It uses the LinkedList class to
+ * create a menu-driven program for managing a linked list. The program allows
+ * the user to add and delete nodes, display the list, change the value of a
+ * node, and view the history of the list.
+ *
+ * @class Main
+ *
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Hans Neil Emnacin
+ * @author Marc Ryzon Elomina
+ * @author Mark Cedrick De Vera
+ * @author Rizaldy Cantalejo
+ * 
+ * @see LinkedList
+ * @see Node
+ * @see Array
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -67,7 +87,7 @@ public class Main {
 								"Current value of node " + value + " is " + list.showCurrentValue(value) + ".");
 						System.out.print("Previous values of node " + value + " are "
 								+ list.nodeHistory(list.currentNode(value)));
-						System.out.println();
+						System.out.println("\n");
 					} else
 						System.out.println("Invalid Position.");
 					break;
