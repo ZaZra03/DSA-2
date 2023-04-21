@@ -5,7 +5,7 @@
  * nodes, displaying the list, changing the value of a node, and viewing the
  * history of the list.
  *
- * @class LinkedList 
+ * @class LinkedList
  * 
  * @author Eugene Lawrence Autos
  * @author Ezra Micah Malsi
@@ -44,6 +44,7 @@ public class LinkedList {
 	 * @param node the node to add to this linked list
 	 */
 	public void addNode(Node node) {
+		// Check if the list is empty
 		if (head == null) {
 			head = node;
 			tail = node;
@@ -51,7 +52,7 @@ public class LinkedList {
 			head.setIndex(size);
 			history.addLinkedList(head);
 		}
-
+		// If the list is not empty
 		else {
 			Node currentNode = tail;
 			currentNode.setNext(node);
@@ -70,9 +71,12 @@ public class LinkedList {
 	 * @param index the position of the node to delete
 	 */
 	public void deleteNode(int index) {
+		// Check if the list is not empty
 		if (size > 0) {
 			Node currentNode = head;
+			// Check if the node to be deleted is the head node
 			if (index == head.getIndex()) {
+				// If the list has only one node
 				if (size == 1) {
 					head.setDeleted(true);
 					tail.setDeleted(true);
@@ -81,21 +85,23 @@ public class LinkedList {
 					size--;
 					history.addLinkedList(new Node(head));
 				}
+				// If the list has more than one node
 				head.setDeleted(true);
 				head.setIndex(-1);
 				size--;
 				fixIndex();
 				history.addLinkedList(new Node(head));
 			}
-
+			// Check if the node to be deleted is the tail node
 			else if (index == tail.getIndex()) {
 				tail.setDeleted(true);
 				tail.setIndex(-1);
 				size--;
 				fixIndex();
 				history.addLinkedList(new Node(head));
-
-			} else {
+			}
+			// If the node to be deleted is neither the head nor the tail node
+			else {
 				while (currentNode.getIndex() != index) {
 					currentNode = currentNode.getNext();
 				}
@@ -106,8 +112,11 @@ public class LinkedList {
 				history.addLinkedList(new Node(head));
 			}
 			System.out.println("\nNode deleted successfully.\n");
-		} else
+		}
+		// If the list is empty
+		else
 			System.out.println("\nList is empty\n.");
+
 	}
 
 	/**
@@ -115,7 +124,9 @@ public class LinkedList {
 	 */
 	public void displayList() {
 		System.out.print("The values are: ");
+		// Iterate through the list from head to tail
 		for (Node currentNode = head; currentNode != null; currentNode = currentNode.getNext()) {
+			// Check if the current node is not deleted
 			if (!currentNode.isDeleted()) {
 				System.out.print(currentNode.getData() + " ");
 			}
@@ -131,16 +142,23 @@ public class LinkedList {
 	 */
 	public void changeValue(Node node, int index) {
 		Node currentNode = head;
+		// Find the node with the given index
 		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
+		// Set the front version of the new node to be the current node
 		node.setFrontVersion(currentNode);
 		int temp = currentNode.getData();
+		// Find the last version of the current node
 		while (currentNode.getNextVersion() != null) {
 			currentNode = currentNode.getNextVersion();
 		}
+		// Set the next version of the last version of the current node to be the new
+		// node
 		currentNode.setNextVersion(node);
+		// Update the data of the front version of the new node
 		node.getFrontVersion().setData(node.getData());
+		// Update the data of the new node
 		node.setData(temp);
 	}
 
@@ -154,13 +172,17 @@ public class LinkedList {
 	public String nodeHistory(Node node) {
 		String temp = "";
 		int frontData = node.getData();
+		// Check if the node has no next version
 		if (node.getNextVersion() == null)
 			return temp += node.getData();
+		// Move to the next version of the node
 		node = node.getNextVersion();
+		// Iterate through all versions of the node
 		while (node != null) {
 			temp = temp + node.getData() + ",";
 			node = node.getNextVersion();
 		}
+		// Add the data of the front version of the node to the end of the string
 		temp = temp + " " + frontData;
 		return temp;
 	}
@@ -172,6 +194,7 @@ public class LinkedList {
 	public void displayHistory() {
 		System.out.print("The values are: ");
 		Node currentNode = head;
+		// Iterate through the list from head to tail
 		while (currentNode != null) {
 			System.out.print(currentNode.getData() + " ");
 			currentNode = currentNode.getNext();
@@ -185,11 +208,14 @@ public class LinkedList {
 	public void fixIndex() {
 		Node currentNode = head;
 		int index = 1;
+		// Iterate through the list from head to tail
 		while (currentNode != null) {
+			// Check if the current node is deleted
 			if (currentNode.isDeleted() == true) {
 				currentNode = currentNode.getNext();
 				continue;
 			}
+			// Update the index of the current node
 			currentNode.setIndex(index);
 			currentNode = currentNode.getNext();
 			index++;
@@ -205,11 +231,14 @@ public class LinkedList {
 	 */
 	public int showCurrentValue(int index) {
 		Node currentNode = head;
+		// Check if the tail node has the given index
 		if (tail.getIndex() == index)
 			return tail.getData();
+		// Find the node with the given index
 		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
+		// Return the data of the node with the given index
 		return currentNode.getData();
 	}
 
@@ -221,11 +250,14 @@ public class LinkedList {
 	 */
 	public Node currentNode(int index) {
 		Node currentNode = head;
+		// Check if the tail node has the given index
 		if (tail.getIndex() == index)
 			return tail;
+		// Find the node with the given index
 		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
+		// Return the node with the given index
 		return currentNode;
 	}
 }
