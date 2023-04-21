@@ -50,13 +50,13 @@ public class LinkedList {
 					head.setIndex(-1);
 					tail.setIndex(-1);
 					size--;
-					history.addLinkedList(head);
+					history.addLinkedList(new Node(head));
 				}
 				head.setDeleted(true);
 				head.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head);
+				history.addLinkedList(new Node(head));
 			}
 
 			else if (index == tail.getIndex()) {
@@ -64,7 +64,7 @@ public class LinkedList {
 				tail.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head);
+				history.addLinkedList(new Node(head));
 
 			} else {
 				while(currentNode.getIndex() != index) {
@@ -74,7 +74,7 @@ public class LinkedList {
 				currentNode.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head);
+				history.addLinkedList(new Node(head));
 			}
 		} else System.out.println("List is empty.");
 	}
@@ -98,11 +98,27 @@ public class LinkedList {
 		while(currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
-		if(currentNode.getVersion() == null) currentNode.setVersion(currentNode);
-		node.setNext(currentNode);
-		currentNode.setPrev(node);
-		node.setIndex(index);
-		currentNode = node;
+		node.setFrontVersion(currentNode);
+		int temp = currentNode.getData();
+		while(currentNode.getNextVersion() != null) {
+			currentNode = currentNode.getNextVersion();
+		}
+		currentNode.setNextVersion(node);
+		node.getFrontVersion().setData(node.getData());
+		node.setData(temp);
+	}
+	
+	public String nodeHistory(Node node) {
+		String temp = "";
+		int frontData = node.getData();
+		if(size == 1) return temp+=node.getData();
+		node = node.getNextVersion();
+		while(node != null) {
+			temp = temp + node.getData() + " ,";
+			node = node.getNextVersion();
+		}
+		temp += frontData;
+		return temp;
 	}
 	
 	public void displayHistory() {
@@ -136,6 +152,15 @@ public class LinkedList {
 			currentNode = currentNode.getNext();
 		}
 		return currentNode.getData();
+	}
+	
+	public Node currentNode(int index) {
+		Node currentNode = head;
+		if(tail.getIndex() == index) return tail;
+		while(currentNode.getIndex() != index) {
+			currentNode = currentNode.getNext();
+		}
+		return currentNode;
 	}
 }
 

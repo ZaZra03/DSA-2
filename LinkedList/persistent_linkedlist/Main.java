@@ -48,14 +48,24 @@ public class Main {
 				case 4: // Change Value
 					System.out.print("Enter node position: ");
 					int index = Integer.parseInt(in.readLine());
-					System.out.println("Current value of node " + index + " is " + list.showCurrentValue(index) + ".");
-					System.out.println();
-					System.out.print("Enter new value for node " + index + ": ");
-					value = Integer.parseInt(in.readLine());
-					list.changeValue(new Node(value), index);
-					System.out.println("Node value has been modified successfully!");
+					if(index > 0 && index < list.getSize()+1) {
+						System.out.println("Current value of node " + index + " is " + list.showCurrentValue(index) + ".");
+						System.out.println();
+						System.out.print("Enter new value for node " + index + ": ");
+						value = Integer.parseInt(in.readLine());
+						list.changeValue(new Node(value), index);
+						System.out.println("Node value has been modified successfully!");
+					} else System.out.println("Invalid Position.");
 					break;
 				case 5: // Node History
+					System.out.print("Enter node position: ");
+					value = Integer.parseInt(in.readLine());
+					if(value > 0 && value < list.getSize()+1) {
+						System.out.println();
+						System.out.println("Current value of node " + value + " is " + list.showCurrentValue(value) + ".");
+						System.out.print("Previous values of node " + value + " are " + list.nodeHistory(list.currentNode(value)));
+						System.out.println();
+					} else System.out.println("Invalid Position.");
 					break;
 				case 6: // List History
 					list.displayHistory();

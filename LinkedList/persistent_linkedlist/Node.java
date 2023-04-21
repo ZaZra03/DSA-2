@@ -4,7 +4,8 @@ public class Node {
 	private int data;
 	private Node next;
 	private Node prev;
-	private Node version;
+	private Node frontVersion;
+	private Node nextVersion;
 	private int index;
 	private boolean isDeleted;
 
@@ -47,11 +48,6 @@ public class Node {
 		return index;
 	}
 	
-	public Node getVersion() {
-		return this.version;
-	}
-	
-
 	public void setData(int data) {
 		this.data = data;
 	}
@@ -68,9 +64,6 @@ public class Node {
 		this.index = index;
 	}
 	
-	public void setVersion(Node version) {
-		this.version = version;
-	}
 
 	public boolean isDeleted() {
 		return isDeleted;
@@ -78,5 +71,21 @@ public class Node {
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public Node getNextVersion() {
+		return nextVersion;
+	}
+
+	public void setNextVersion(Node nextVersion) {
+		this.nextVersion = nextVersion;
+	}
+
+	public Node getFrontVersion() {
+		return frontVersion;
+	}
+
+	public void setFrontVersion(Node frontVersion) {
+		this.frontVersion = frontVersion;
 	}
 }
