@@ -1,17 +1,15 @@
-package persistent_linkedlist;
-
 public class Array {
 	private Node array[];
 	private int size;
 	private int capacity;
 	private Node tail;
-	
+
 	public Array(int size) {
 		this.setArray(new Node[size]);
 		this.setSize(size);
 		this.setCapacity(size);
 	}
-	
+
 	public Node[] getArray() {
 		return array;
 	}
@@ -35,18 +33,19 @@ public class Array {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	
+
 	public void addLinkedList(Node head) {
-		if(capacity == capacity - size + 1) increaseCapacity();
+		if (capacity == capacity - size + 1)
+			increaseCapacity();
 		array[size - capacity] = head;
 		tail = array[size - capacity];
 		capacity--;
 	}
-	
+
 	public void increaseCapacity() {
 		Node temp[] = new Node[size + 10];
 		int index = 0;
-		for(Node value: this.array) {
+		for (Node value : this.array) {
 			temp[index] = value;
 			index++;
 		}
