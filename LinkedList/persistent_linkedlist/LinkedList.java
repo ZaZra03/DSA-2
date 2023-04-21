@@ -26,7 +26,7 @@ public class LinkedList {
 			tail = node;
 			size++;
 			head.setIndex(size);
-			history.addLinkedList(head, "Added " + head.getData() + " into the stack.");
+			history.addLinkedList(head, "Added " + head.getData() + " into the list.");
 		}
 
 		else {
@@ -36,7 +36,7 @@ public class LinkedList {
 			tail = node;
 			size++;
 			tail.setIndex(size);
-			history.addLinkedList(new Node(head), "Added " + tail.getData() + " into the stack.");
+			history.addLinkedList(new Node(head), "Added " + tail.getData() + " into the list.");
 		}
 	}
 
@@ -50,14 +50,14 @@ public class LinkedList {
 					head = null;
 					tail = null;
 					size--;
-					history.addLinkedList(head, "Remove " + temp + " from the stack.");
+					history.addLinkedList(head, "Remove " + temp + " from the list.");
 				}
 				temp = head.getData();
 				head = head.getNext();
 				head.setPrev(null);
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the stack.");
+				history.addLinkedList(head, "Remove " + temp + " from the list.");
 			}
 
 			else if (index == tail.getIndex()) {
@@ -66,7 +66,7 @@ public class LinkedList {
 				tail.setNext(null);
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the stack.");
+				history.addLinkedList(head, "Remove " + temp + " from the list.");
 
 			} else {
 				while(currentNode.getIndex() != index) {
@@ -78,7 +78,7 @@ public class LinkedList {
 				currentNode = null;
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the stack.");
+				history.addLinkedList(head, "Remove " + temp + " from the list.");
 			}
 		} else System.out.println("List is empty.");
 	}
@@ -93,8 +93,16 @@ public class LinkedList {
 		}
 	}
 	
-	public void changeValue(Node node) {
-		
+	public void changeValue(Node node, int index) {
+		Node currentNode = head;
+		while(currentNode.getIndex() != index) {
+			currentNode = currentNode.getNext();
+		}
+		if(currentNode.getVersion() == null) currentNode.setVersion(currentNode);
+		node.setNext(currentNode);
+		currentNode.setPrev(node);
+		node.setIndex(index);
+		currentNode = node;
 	}
 	
 	public void fixIndex() {
@@ -105,6 +113,15 @@ public class LinkedList {
 			currentNode = currentNode.getNext();
 			index++;
 		}
+	}
+	
+	public int showCurrentValue(int index) {
+		Node currentNode = head;
+		if(tail.getIndex() == index) return tail.getData();
+		while(currentNode.getIndex() != index) {
+			currentNode = currentNode.getNext();
+		}
+		return currentNode.getData();
 	}
 }
 

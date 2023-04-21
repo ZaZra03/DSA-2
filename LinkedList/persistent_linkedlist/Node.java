@@ -70,6 +70,10 @@ public class Node {
 		this.index = index;
 	}
 	
+	public void setVersion(Node version) {
+		this.version = version;
+	}
+	
 	public void setMessage(String message) {
 		this.message = message;
 	}

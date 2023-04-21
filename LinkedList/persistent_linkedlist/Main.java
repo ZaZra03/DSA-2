@@ -46,6 +46,14 @@ public class Main {
 					list.displayList();
 					break;
 				case 4: // Change Value
+					System.out.print("Enter node position: ");
+					int index = Integer.parseInt(in.readLine());
+					System.out.println("Current value of node " + index + " is " + list.showCurrentValue(index) + ".");
+					System.out.println();
+					System.out.print("Enter new value for node " + index + ": ");
+					value = Integer.parseInt(in.readLine());
+					list.changeValue(new Node(value), index);
+					System.out.println("Node value has been modified successfully!");
 					break;
 				case 5: // Node History
 					break;
