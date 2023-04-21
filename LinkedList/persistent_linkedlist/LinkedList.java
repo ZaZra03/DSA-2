@@ -1,13 +1,9 @@
-package persistent_linkedlist;
-
 public class LinkedList {
 	private Node head;
 	private Node tail;
 	private int size;
 	private Array history = new Array(10);
-	
 
-	
 	public Node getHead() {
 		return this.head;
 	}
@@ -21,7 +17,7 @@ public class LinkedList {
 	}
 
 	public void addNode(Node node) {
-		if(head == null) {
+		if (head == null) {
 			head = node;
 			tail = node;
 			size++;
@@ -30,7 +26,7 @@ public class LinkedList {
 		}
 
 		else {
-			Node currentNode = tail;	
+			Node currentNode = tail;
 			currentNode.setNext(node);
 			node.setPrev(currentNode);
 			tail = node;
@@ -38,13 +34,14 @@ public class LinkedList {
 			tail.setIndex(size);
 			history.addLinkedList(new Node(head));
 		}
+		System.out.println("\nNode added successfully.\n");
 	}
 
 	public void deleteNode(int index) {
-		if(size > 0) {
+		if (size > 0) {
 			Node currentNode = head;
-			if(index == head.getIndex()) {
-				if(size == 1) {
+			if (index == head.getIndex()) {
+				if (size == 1) {
 					head.setDeleted(true);
 					tail.setDeleted(true);
 					head.setIndex(-1);
@@ -67,7 +64,7 @@ public class LinkedList {
 				history.addLinkedList(new Node(head));
 
 			} else {
-				while(currentNode.getIndex() != index) {
+				while (currentNode.getIndex() != index) {
 					currentNode = currentNode.getNext();
 				}
 				currentNode.setDeleted(true);
@@ -76,91 +73,95 @@ public class LinkedList {
 				fixIndex();
 				history.addLinkedList(new Node(head));
 			}
-		} else System.out.println("List is empty.");
+			System.out.println("\nNode deleted successfully.\n");
+		} else
+			System.out.println("\nList is empty\n.");
 	}
 
 	public void displayList() {
 		System.out.print("The values are: ");
 		Node currentNode = head;
-		while(currentNode != null) {
-			if(currentNode.isDeleted() == true) {
+		while (currentNode != null) {
+			if (currentNode.isDeleted() == true) {
 				currentNode = currentNode.getNext();
 				continue;
 			}
 			System.out.print(currentNode.getData() + " ");
 			currentNode = currentNode.getNext();
 		}
-		System.out.println();
+		System.out.println("\n");
 	}
-	
+
 	public void changeValue(Node node, int index) {
 		Node currentNode = head;
-		while(currentNode.getIndex() != index) {
+		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
 		node.setFrontVersion(currentNode);
 		int temp = currentNode.getData();
-		while(currentNode.getNextVersion() != null) {
+		while (currentNode.getNextVersion() != null) {
 			currentNode = currentNode.getNextVersion();
 		}
 		currentNode.setNextVersion(node);
 		node.getFrontVersion().setData(node.getData());
 		node.setData(temp);
 	}
-	
+
 	public String nodeHistory(Node node) {
 		String temp = "";
 		int frontData = node.getData();
-		if(node.getNextVersion() == null) return temp+=node.getData();
+		if (node.getNextVersion() == null)
+			return temp += node.getData();
 		node = node.getNextVersion();
-		while(node != null) {
-			temp = temp + node.getData() + " ,";
+		while (node != null) {
+			temp = temp + node.getData() + ",";
 			node = node.getNextVersion();
 		}
-		temp = temp + " " +frontData;
+		temp = temp + " " + frontData;
 		return temp;
 	}
-	
+
 	public void displayHistory() {
 		System.out.print("The values are: ");
 		Node currentNode = head;
-		while(currentNode != null) {
+		while (currentNode != null) {
 			System.out.print(currentNode.getData() + " ");
 			currentNode = currentNode.getNext();
 		}
-		System.out.println();
+		System.out.println("\n");
 	}
-	
+
 	public void fixIndex() {
 		Node currentNode = head;
 		int index = 1;
-		while(currentNode != null) {
-			if(currentNode.isDeleted() == true) {
+		while (currentNode != null) {
+			if (currentNode.isDeleted() == true) {
 				currentNode = currentNode.getNext();
 				continue;
-			} 
+			}
 			currentNode.setIndex(index);
 			currentNode = currentNode.getNext();
 			index++;
 		}
 	}
-	
+
 	public int showCurrentValue(int index) {
 		Node currentNode = head;
-		if(tail.getIndex() == index) return tail.getData();
-		while(currentNode.getIndex() != index) {
+		if (tail.getIndex() == index)
+			return tail.getData();
+		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
 		return currentNode.getData();
 	}
-	
+
 	public Node currentNode(int index) {
 		Node currentNode = head;
-		if(tail.getIndex() == index) return tail;
-		while(currentNode.getIndex() != index) {
+		if (tail.getIndex() == index)
+			return tail;
+		while (currentNode.getIndex() != index) {
 			currentNode = currentNode.getNext();
 		}
 		return currentNode;
 	}
 }
-
