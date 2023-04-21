@@ -6,7 +6,8 @@ public class Node {
 	private Node prev;
 	private Node version;
 	private int index;
-	private String message;
+	private boolean isDeleted;
+
 	
 	public Node() {
 		this.data = 0;
@@ -50,9 +51,6 @@ public class Node {
 		return this.version;
 	}
 	
-	public String getMessage() {
-		return this.message;
-	}
 
 	public void setData(int data) {
 		this.data = data;
@@ -73,8 +71,12 @@ public class Node {
 	public void setVersion(Node version) {
 		this.version = version;
 	}
-	
-	public void setMessage(String message) {
-		this.message = message;
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 }

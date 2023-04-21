@@ -26,7 +26,7 @@ public class LinkedList {
 			tail = node;
 			size++;
 			head.setIndex(size);
-			history.addLinkedList(head, "Added " + head.getData() + " into the list.");
+			history.addLinkedList(head);
 		}
 
 		else {
@@ -36,49 +36,45 @@ public class LinkedList {
 			tail = node;
 			size++;
 			tail.setIndex(size);
-			history.addLinkedList(new Node(head), "Added " + tail.getData() + " into the list.");
+			history.addLinkedList(new Node(head));
 		}
 	}
 
 	public void deleteNode(int index) {
 		if(size > 0) {
 			Node currentNode = head;
-			int temp;
 			if(index == head.getIndex()) {
 				if(size == 1) {
-					temp = head.getData();
-					head = null;
-					tail = null;
+					head.setDeleted(true);
+					tail.setDeleted(true);
+					head.setIndex(-1);
+					tail.setIndex(-1);
 					size--;
-					history.addLinkedList(head, "Remove " + temp + " from the list.");
+					history.addLinkedList(head);
 				}
-				temp = head.getData();
-				head = head.getNext();
-				head.setPrev(null);
+				head.setDeleted(true);
+				head.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the list.");
+				history.addLinkedList(head);
 			}
 
 			else if (index == tail.getIndex()) {
-				temp = tail.getData();
-				tail = tail.getPrev();
-				tail.setNext(null);
+				tail.setDeleted(true);
+				tail.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the list.");
+				history.addLinkedList(head);
 
 			} else {
 				while(currentNode.getIndex() != index) {
 					currentNode = currentNode.getNext();
 				}
-				temp = currentNode.getData();
-				currentNode.getPrev().setNext(currentNode.getNext());
-				currentNode.getNext().setPrev(currentNode.getPrev());
-				currentNode = null;
+				currentNode.setDeleted(true);
+				currentNode.setIndex(-1);
 				size--;
 				fixIndex();
-				history.addLinkedList(head, "Remove " + temp + " from the list.");
+				history.addLinkedList(head);
 			}
 		} else System.out.println("List is empty.");
 	}
@@ -87,10 +83,14 @@ public class LinkedList {
 		System.out.print("The values are: ");
 		Node currentNode = head;
 		while(currentNode != null) {
+			if(currentNode.isDeleted() == true) {
+				currentNode = currentNode.getNext();
+				continue;
+			}
 			System.out.print(currentNode.getData() + " ");
 			currentNode = currentNode.getNext();
-
 		}
+		System.out.println();
 	}
 	
 	public void changeValue(Node node, int index) {
@@ -109,6 +109,10 @@ public class LinkedList {
 		Node currentNode = head;
 		int index = 1;
 		while(currentNode != null) {
+			if(currentNode.isDeleted() == true) {
+				currentNode = currentNode.getNext();
+				continue;
+			} 
 			currentNode.setIndex(index);
 			currentNode = currentNode.getNext();
 			index++;

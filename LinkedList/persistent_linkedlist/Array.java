@@ -36,11 +36,10 @@ public class Array {
 		this.capacity = capacity;
 	}
 	
-	public void addLinkedList(Node head, String message) {
+	public void addLinkedList(Node head) {
 		if(capacity == capacity - size + 1) increaseCapacity();
 		array[size - capacity] = head;
 		tail = array[size - capacity];
-		head.setMessage(message);
 		capacity--;
 	}
 	
