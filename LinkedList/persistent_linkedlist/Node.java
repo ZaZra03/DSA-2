@@ -1,4 +1,23 @@
+/**
+ * The Node class represents a node in a linked list. It has several fields for
+ * storing data and references to other nodes. It also has several methods for
+ * getting and setting the values of these fields.
+ *
+ * @class Node
+ *
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Hans Neil Emnacin
+ * @author Marc Ryzon Elomina
+ * @author Mark Cedrick De Vera
+ * @author Rizaldy Cantalejo
+ * 
+ * @see LinkedList
+ * @see Array
+ * @see Main
+ */
 public class Node {
+	// Class fields
 	private int data;
 	private Node next;
 	private Node prev;
@@ -7,6 +26,7 @@ public class Node {
 	private int index;
 	private boolean isDeleted;
 
+	// Constructors
 	public Node() {
 		this.data = 0;
 		this.next = null;
@@ -29,6 +49,7 @@ public class Node {
 		}
 	}
 
+	// Getters and Setters
 	public int getData() {
 		return data;
 	}
