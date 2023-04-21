@@ -1,5 +1,3 @@
-package persistent_linkedlist;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,13 +7,13 @@ public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		LinkedList list = new LinkedList();
-		
+
 		int value;
 
 		while (true) {
 			// Display menu options.
-			System.out.println("MENU");
-			System.out.println("\n[1] Add Node");
+			System.out.println("-MENU-");
+			System.out.println("[1] Add Node");
 			System.out.println("[2] Delete Node");
 			System.out.println("[3] Display");
 			System.out.println("[4] Change Value");
@@ -38,9 +36,10 @@ public class Main {
 				case 2: // Delete Node
 					System.out.print("Enter node position: ");
 					value = Integer.parseInt(in.readLine());
-					if(value > 0 && value < list.getSize()+1) {
+					if (value > 0 && value < list.getSize() + 1) {
 						list.deleteNode(value);
-					} else System.out.println("Invalid Position.");
+					} else
+						System.out.println("Invalid Position.\n");
 					break;
 				case 3: // Display List
 					list.displayList();
@@ -48,42 +47,47 @@ public class Main {
 				case 4: // Change Value
 					System.out.print("Enter node position: ");
 					int index = Integer.parseInt(in.readLine());
-					if(index > 0 && index < list.getSize()+1) {
-						System.out.println("Current value of node " + index + " is " + list.showCurrentValue(index) + ".");
+					if (index > 0 && index < list.getSize() + 1) {
+						System.out.println(
+								"Current value of node " + index + " is " + list.showCurrentValue(index) + ".");
 						System.out.println();
 						System.out.print("Enter new value for node " + index + ": ");
 						value = Integer.parseInt(in.readLine());
 						list.changeValue(new Node(value), index);
-						System.out.println("Node value has been modified successfully!");
-					} else System.out.println("Invalid Position.");
+						System.out.println("Node value has been modified successfully!\n");
+					} else
+						System.out.println("Invalid Position.");
 					break;
 				case 5: // Node History
 					System.out.print("Enter node position: ");
 					value = Integer.parseInt(in.readLine());
-					if(value > 0 && value < list.getSize()+1) {
+					if (value > 0 && value < list.getSize() + 1) {
 						System.out.println();
-						System.out.println("Current value of node " + value + " is " + list.showCurrentValue(value) + ".");
-						System.out.print("Previous values of node " + value + " are " + list.nodeHistory(list.currentNode(value)));
+						System.out.println(
+								"Current value of node " + value + " is " + list.showCurrentValue(value) + ".");
+						System.out.print("Previous values of node " + value + " are "
+								+ list.nodeHistory(list.currentNode(value)));
 						System.out.println();
-					} else System.out.println("Invalid Position.");
+					} else
+						System.out.println("Invalid Position.");
 					break;
 				case 6: // List History
 					list.displayHistory();
 					break;
 				case 7: // Exit
-					System.out.print("\nProgram will be terminated");
+					System.out.println("Program will be terminated");
 					for (int i = 0; i < 3; i++) {
 						Thread.sleep(1000);
 						System.out.print(".");
 					}
-					System.out.print("\nProgram terminated.");
+					System.out.println("Program terminated.");
 					System.exit(0);
 					break;
 				default:
 					System.out.println("Invalid choice!\n");
 				}
-			} catch (NumberFormatException e) {
-				System.out.println("\nInput must be an integer.\n");
+			} catch (Exception e) {
+				System.out.println("\nInvalid input.\n");
 			}
 		}
 
