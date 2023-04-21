@@ -105,6 +105,16 @@ public class LinkedList {
 		currentNode = node;
 	}
 	
+	public void displayHistory() {
+		System.out.print("The values are: ");
+		Node currentNode = head;
+		while(currentNode != null) {
+			System.out.print(currentNode.getData() + " ");
+			currentNode = currentNode.getNext();
+		}
+		System.out.println();
+	}
+	
 	public void fixIndex() {
 		Node currentNode = head;
 		int index = 1;

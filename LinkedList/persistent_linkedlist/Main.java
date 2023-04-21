@@ -58,6 +58,7 @@ public class Main {
 				case 5: // Node History
 					break;
 				case 6: // List History
+					list.displayHistory();
 					break;
 				case 7: // Exit
 					System.out.print("\nProgram will be terminated");
