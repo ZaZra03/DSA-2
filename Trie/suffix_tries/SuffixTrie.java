@@ -20,6 +20,13 @@ public class SuffixTrie {
 		return key;
 	}
 	
+	public boolean isChildFull() {
+		return isChildFull;
+	}
+	public void setChildFull(boolean isChildFull) {
+		this.isChildFull = isChildFull;
+	}
+	
 	public void insert(String text) {
 		Node temp = root;
 		for(int i = 0; i < text.length(); i++) {
@@ -27,7 +34,7 @@ public class SuffixTrie {
 			int key = hashKey(currentChar);
 			
 			if(i == 0) {
-				if(!isChildFull) {
+				if(!isChildFull()) {
 					if(root.getChild()[0] == null) {
 						temp.getChild()[0] = new Node(currentChar);
 						root.setChildEmpty(false);
@@ -36,7 +43,7 @@ public class SuffixTrie {
 					else if(root.getChild()[1] == null && currentChar != root.getChild()[0].getData()) {
 						temp.getChild()[1] = new Node(currentChar);
 						temp = temp.getChild()[1];
-						isChildFull = true;
+						setChildFull(true);
 					} else temp = temp.getChild()[0];
 				} else {
 					if(root.getChild()[0].getData() == text.charAt(0)) temp = temp.getChild()[0];
