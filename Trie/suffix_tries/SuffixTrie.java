@@ -62,18 +62,17 @@ public class SuffixTrie {
 		temp.setisLastCharacter(true);
 	}
 	
-	public void search(Node node) {
-		
-	}
 	
 	public String displayChild(Node node) {
 		String child = "";
+		if(node.isChildEmpty()) return child += node.getData();
 		for(int i = 0; i < node.getChild().length; i++) {
-			if(node.getChild()[i] == null) continue;
-			if(node.isLastCharacter()) child += "terminate";
-			if(child.length() == 0) child += node.getChild()[i].getData();
-			else child += "," + node.getChild()[i].getData();
+				if(node.getChild()[i] == null) continue;
+				if(node.isLastCharacter()) child += "terminate";
+				if(child.length() == 0) child += node.getChild()[i].getData();
+				else child += "," + node.getChild()[i].getData();
 		}
+
 		return child;
 	}
 }

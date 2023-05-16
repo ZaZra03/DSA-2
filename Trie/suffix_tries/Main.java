@@ -11,9 +11,6 @@ public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		// TODO Auto-generated method stub
-		int value;
-		String text;
-
 //		trie.insert("bear");
 //		trie.insert("bell");
 //		trie.insert("bid");
@@ -23,12 +20,9 @@ public class Main {
 //		trie.insert("stock");
 //		trie.insert("stop");
 //
-//		for (int i = 0; i < trie.getRoot().getChild().length; i++) {
-//			System.out.println(trie.getRoot().getChild()[i].getData());
-//		}
 		while(true) {
 			System.out.print("How many strings? ");
-			value = Integer.parseInt(in.readLine());
+			int value = Integer.parseInt(in.readLine());
 			System.out.println("Enter " + value + " strings:");
 			if(initializedTrie(value, "")) {
 				System.out.println("Standard trie created!");
@@ -46,49 +40,43 @@ public class Main {
 					else
 						temp = temp.getChild()[1];
 
-					while (!(temp.isChildEmpty())) {
-						text = trie.displayChild(temp);
-						if (text.length() != 1) {
-							System.out.print("Select child node from " + character + " (" + text + "): ");
+					while (temp != null) {
+						String children = trie.displayChild(temp);
+						if (children.length() != 1) {
+							System.out.println("Display: " + search);
+							System.out.print("Select child node from " + character + " (" + children + "): ");
 							character = in.readLine();
+							search += character + " ";
 							temp = temp.getChild()[trie.hashKey(character.charAt(0))];
-							text = trie.displayChild(temp);
-
-							if (text.length() != 1) {
-								search += character + " ";
-								System.out.println("Display: " + search);
-								temp = temp.getChild()[trie.hashKey(character.charAt(0))];
-
-							} else {
-								search += character + " " + text + " ";
-								System.out.println("Display: " + search);
-								temp = temp.getChild()[trie.hashKey(text.charAt(0))];
-							}
+							continue;
 
 						} else {
-							while(text.length() == 1 && !(temp.isLastCharacter())) {
-								temp = temp.getChild()[trie.hashKey(text.charAt(0))];
-								search += text.charAt(0) + " ";
-								text = trie.displayChild(temp);
+							while(children.length() == 1 && !(temp.isLastCharacter())) {
+								temp = temp.getChild()[trie.hashKey(children.charAt(0))];
+								search += children.charAt(0) + " ";
+								children = trie.displayChild(temp);
 							}
-							System.out.println("Display: " + search);
-							System.out.print("Select child node from " + temp.getData() + " (" + text + "): ");
-							character = in.readLine();
-							if(character.charAt(0) == 't') {
+							if(temp.isLastCharacter() && temp.isChildEmpty()) {
 								System.out.println("Display: " + search);
 								break;
-							} else {
-								search += character + " ";
+							}
+							
+							System.out.println("Display: " + search);
+							System.out.print("Select child node from " + temp.getData() + " (" + children + "): ");
+							character = in.readLine();
+							if(character.equals("terminate")) {
 								System.out.println("Display: " + search);
-								temp = temp.getChild()[trie.hashKey(character.charAt(0))];
-							} 
+								break;
+							}
+							search += character + " ";
+							temp = temp.getChild()[trie.hashKey(character.charAt(0))];
 						} 
 					}
 
 					System.out.print("Try again? ");
-					text = in.readLine().toUpperCase();
+					String response = in.readLine().toUpperCase();
 
-					switch (text) {
+					switch (response) {
 					case "Y":
 						System.out.println();
 						break;
