@@ -32,7 +32,6 @@ public class SuffixTrie {
 		for(int i = 0; i < text.length(); i++) {
 			char currentChar = text.charAt(i);
 			int key = hashKey(currentChar);
-			
 			if(i == 0) {
 				if(!isChildFull()) {
 					if(root.getChild()[0] == null) {
@@ -60,6 +59,7 @@ public class SuffixTrie {
 				} 
 			}
 		}
+		temp.setisLastCharacter(true);
 	}
 	
 	public void search(Node node) {
@@ -70,6 +70,7 @@ public class SuffixTrie {
 		String child = "";
 		for(int i = 0; i < node.getChild().length; i++) {
 			if(node.getChild()[i] == null) continue;
+			if(node.isLastCharacter()) child += "terminate";
 			if(child.length() == 0) child += node.getChild()[i].getData();
 			else child += "," + node.getChild()[i].getData();
 		}

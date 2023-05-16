@@ -4,6 +4,7 @@ public class Node {
 	private char data;
 	private Node[] child;
 	private boolean isChildEmpty = true;
+	private boolean isLastCharacter;
 	
 	public Node() {
 		setChild(new Node[2]);
@@ -36,5 +37,13 @@ public class Node {
 
 	public void setChildEmpty(boolean isChildEmpty) {
 		this.isChildEmpty = isChildEmpty;
+	}
+
+	public boolean isLastCharacter() {
+		return isLastCharacter;
+	}
+
+	public void setisLastCharacter(boolean isLastCharacter) {
+		this.isLastCharacter = isLastCharacter;
 	}
 }
