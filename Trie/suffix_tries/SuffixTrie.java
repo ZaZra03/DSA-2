@@ -30,6 +30,7 @@ public class SuffixTrie {
 				if(!isChildFull) {
 					if(root.getChild()[0] == null) {
 						temp.getChild()[0] = new Node(currentChar);
+						root.setChildEmpty(false);
 						temp = temp.getChild()[0];
 					} 
 					else if(root.getChild()[1] == null && currentChar != root.getChild()[0].getData()) {
@@ -44,6 +45,7 @@ public class SuffixTrie {
 			} else {
 				if(temp.getChild()[key] == null) {
 					temp.getChild()[key] = new Node(currentChar);
+					temp.setChildEmpty(false);
 					temp = temp.getChild()[key];
 				} 
 				else {
@@ -55,5 +57,15 @@ public class SuffixTrie {
 	
 	public void search(Node node) {
 		
+	}
+	
+	public String displayChild(Node node) {
+		String child = "";
+		for(int i = 0; i < node.getChild().length; i++) {
+			if(node.getChild()[i] == null) continue;
+			if(child.length() == 0) child += node.getChild()[i].getData();
+			else child += "," + node.getChild()[i].getData();
+		}
+		return child;
 	}
 }
