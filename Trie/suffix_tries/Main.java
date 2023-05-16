@@ -1,5 +1,27 @@
-package suffix_tries;
 
+/**
+ * The Main class serves as the entry point and user interface for interacting
+ * with the SuffixTrie data structure. It prompts the user to input the number
+ * of strings to insert into the trie and then allows the user to traverse the
+ * trie by selecting child nodes from the root node. The program displays the
+ * current path during the traversal and provides options to retry or terminate
+ * the program. The initializedTrie method handles the insertion of strings into
+ * the trie, checking for compatibility with existing child nodes. Overall, the
+ * Main class provides a user-friendly way to create and navigate a suffix trie,
+ * allowing users to explore and interact with the data structure.
+ *
+ * @class Main
+ *
+ * @author Eugene Lawrence Autos
+ * @author Ezra Micah Malsi
+ * @author Hans Neil Emnacin
+ * @author Marc Ryzon Elomina
+ * @author Mark Cedrick De Vera
+ * @author Rizaldy Cantalejo
+ * 
+ * @see Node
+ * @see SuffixTrie
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,23 +30,12 @@ public class Main {
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	static SuffixTrie trie = new SuffixTrie();
 
-
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
-		// TODO Auto-generated method stub
-//		trie.insert("bear");
-//		trie.insert("bell");
-//		trie.insert("bid");
-//		trie.insert("bull");
-//		trie.insert("buy");
-//		trie.insert("sell");
-//		trie.insert("stock");
-//		trie.insert("stop");
-//
-		while(true) {
+		while (true) {
 			System.out.print("How many strings? ");
 			int value = Integer.parseInt(in.readLine());
 			System.out.println("Enter " + value + " strings:");
-			if(initializedTrie(value, "")) {
+			if (initializedTrie(value, "")) {
 				System.out.println("Standard trie created!");
 				System.out.println();
 
@@ -34,7 +45,8 @@ public class Main {
 					System.out.print("Select child node from root node (" + trie.displayChild(temp) + "): ");
 					String character = in.readLine();
 					search += character + " ";
-//					System.out.println("Display: " + search);
+
+					// Traverse the trie based on user input.
 					if (temp.getChild()[0].getData() == character.charAt(0))
 						temp = temp.getChild()[0];
 					else
@@ -51,28 +63,32 @@ public class Main {
 							continue;
 
 						} else {
-							while(children.length() == 1 && !(temp.isLastCharacter())) {
+							// Traverse the trie until a terminating node is reached.
+							while (children.length() == 1 && !(temp.isLastCharacter())) {
 								temp = temp.getChild()[trie.hashKey(children.charAt(0))];
 								search += children.charAt(0) + " ";
 								children = trie.displayChild(temp);
 							}
-							if(temp.isLastCharacter() && temp.isChildEmpty()) {
+							if (temp.isLastCharacter() && temp.isChildEmpty()) {
 								System.out.println("Display: " + search);
 								break;
 							}
-							
+
 							System.out.println("Display: " + search);
 							System.out.print("Select child node from " + temp.getData() + " (" + children + "): ");
 							character = in.readLine();
-							if(character.equals("terminate")) {
+
+							// Handle termination condition.
+							if (character.equals("terminate")) {
 								System.out.println("Display: " + search);
 								break;
 							}
 							search += character + " ";
 							temp = temp.getChild()[trie.hashKey(character.charAt(0))];
-						} 
+						}
 					}
 
+					// Ask user if they want to try again or exit the program.
 					System.out.print("Try again? ");
 					String response = in.readLine().toUpperCase();
 
@@ -97,21 +113,39 @@ public class Main {
 			} else {
 				System.out.println("Error. Please try again.");
 				System.out.println();
-			} 
+			}
 		}
 	}
 
-	static boolean initializedTrie (int value, String text) throws NumberFormatException, IOException {
+	/**
+	 * Initializes the suffix trie by inserting the specified number of strings into
+	 * it. Returns true if the trie is successfully initialized, or false otherwise.
+	 * 
+	 * @param value The number of strings to insert into the trie.
+	 * @param text  A placeholder variable for reading user input.
+	 * @return True if the trie is successfully initialized, false otherwise.
+	 * @throws NumberFormatException If the input string cannot be parsed as an
+	 *                               integer.
+	 * @throws IOException           If an I/O error occurs while reading the input.
+	 */
+	static boolean initializedTrie(int value, String text) throws NumberFormatException, IOException {
 		for (int i = 0; i < value; i++) {
 			text = in.readLine();
-			if(trie.isChildFull()) {
-				if(trie.getRoot().getChild()[0].getData() == text.charAt(0) || trie.getRoot().getChild()[1].getData() == text.charAt(0)) {
+			if (trie.isChildFull()) {
+				// If the root's children match the first character of the string, insert it
+				// into the trie.
+				if (trie.getRoot().getChild()[0].getData() == text.charAt(0)
+						|| trie.getRoot().getChild()[1].getData() == text.charAt(0)) {
 					trie.insert(text);
 				} else {
+					// If the first character of the string doesn't match the existing children,
+					// reset the trie and return false.
 					trie = new SuffixTrie();
 					return false;
 				}
-			} else trie.insert(text);
+			} else
+				// Insert the string into the trie.
+				trie.insert(text);
 		}
 		return true;
 	}
