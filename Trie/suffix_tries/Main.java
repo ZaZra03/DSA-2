@@ -33,85 +33,90 @@ public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		while (true) {
 			System.out.print("How many strings? ");
-			int value = Integer.parseInt(in.readLine());
-			System.out.println("Enter " + value + " strings:");
-			if (initializedTrie(value, "")) {
-				System.out.println("Standard trie created!");
-				System.out.println();
+			try {
+				int value = Integer.parseInt(in.readLine());
+				System.out.println("Enter " + value + " strings:");
+				if (initializedTrie(value, "")) {
+					System.out.println("Standard trie created!");
+					System.out.println();
 
-				while (true) {
-					String search = "";
-					Node temp = trie.getRoot();
-					System.out.print("Select child node from root node (" + trie.displayChild(temp) + "): ");
-					String character = in.readLine();
-					search += character + " ";
+					while (true) {
+						String search = "";
+						Node temp = trie.getRoot();
+						System.out.print("Select child node from root node (" + trie.displayChild(temp) + "): ");
+						String character = in.readLine();
+						search += character + " ";
 
-					// Traverse the trie based on user input.
-					if (temp.getChild()[0].getData() == character.charAt(0))
-						temp = temp.getChild()[0];
-					else
-						temp = temp.getChild()[1];
+						// Traverse the trie based on user input.
+						if (temp.getChild()[0].getData() == character.charAt(0))
+							temp = temp.getChild()[0];
+						else
+							temp = temp.getChild()[1];
 
-					while (temp != null) {
-						String children = trie.displayChild(temp);
-						if (children.length() != 1) {
-							System.out.println("Display: " + search);
-							System.out.print("Select child node from " + character + " (" + children + "): ");
-							character = in.readLine();
-							search += character + " ";
-							temp = temp.getChild()[trie.hashKey(character.charAt(0))];
-							continue;
-
-						} else {
-							// Traverse the trie until a terminating node is reached.
-							while (children.length() == 1 && !(temp.isLastCharacter())) {
-								temp = temp.getChild()[trie.hashKey(children.charAt(0))];
-								search += children.charAt(0) + " ";
-								children = trie.displayChild(temp);
-							}
-							if (temp.isLastCharacter() && temp.isChildEmpty()) {
+						while (temp != null) {
+							String children = trie.displayChild(temp);
+							if (children.length() != 1) {
 								System.out.println("Display: " + search);
-								break;
-							}
+								System.out.print("Select child node from " + character + " (" + children + "): ");
+								character = in.readLine();
+								search += character + " ";
+								temp = temp.getChild()[trie.hashKey(character.charAt(0))];
+								continue;
 
-							System.out.println("Display: " + search);
-							System.out.print("Select child node from " + temp.getData() + " (" + children + "): ");
-							character = in.readLine();
+							} else {
+								// Traverse the trie until a terminating node is reached.
+								while (children.length() == 1 && !(temp.isLastCharacter())) {
+									temp = temp.getChild()[trie.hashKey(children.charAt(0))];
+									search += children.charAt(0) + " ";
+									children = trie.displayChild(temp);
+								}
+								if (temp.isLastCharacter() && temp.isChildEmpty()) {
+									System.out.println("Display: " + search);
+									break;
+								}
 
-							// Handle termination condition.
-							if (character.equals("terminate")) {
 								System.out.println("Display: " + search);
-								break;
+								System.out.print("Select child node from " + temp.getData() + " (" + children + "): ");
+								character = in.readLine();
+
+								// Handle termination condition.
+								if (character.equals("terminate")) {
+									System.out.println("Display: " + search);
+									break;
+								}
+								search += character + " ";
+								temp = temp.getChild()[trie.hashKey(character.charAt(0))];
 							}
-							search += character + " ";
-							temp = temp.getChild()[trie.hashKey(character.charAt(0))];
+						}
+
+						// Ask user if they want to try again or exit the program.
+						System.out.print("Try again? ");
+						String response = in.readLine().toUpperCase();
+
+						switch (response) {
+						case "Y":
+							System.out.println();
+							break;
+						case "N":
+							System.out.println("Program will be terminated");
+							for (int i = 0; i < 3; i++) {
+								Thread.sleep(1000);
+								System.out.print(".");
+							}
+							System.out.println("Program terminated.");
+							System.exit(0);
+							break;
+						default:
+							System.out.println("Invalid choice!\n");
 						}
 					}
 
-					// Ask user if they want to try again or exit the program.
-					System.out.print("Try again? ");
-					String response = in.readLine().toUpperCase();
-
-					switch (response) {
-					case "Y":
-						System.out.println();
-						break;
-					case "N":
-						System.out.println("Program will be terminated");
-						for (int i = 0; i < 3; i++) {
-							Thread.sleep(1000);
-							System.out.print(".");
-						}
-						System.out.println("Program terminated.");
-						System.exit(0);
-						break;
-					default:
-						System.out.println("Invalid choice!\n");
-					}
+				} else {
+					System.out.println("Error. Please try again.");
+					System.out.println();
 				}
-
-			} else {
-				System.out.println("Error. Please try again.");
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid input. Please enter a valid integer.");
 				System.out.println();
 			}
 		}
@@ -129,24 +134,24 @@ public class Main {
 	 * @throws IOException           If an I/O error occurs while reading the input.
 	 */
 	static boolean initializedTrie(int value, String text) throws NumberFormatException, IOException {
-		for (int i = 0; i < value; i++) {
-			text = in.readLine();
-			if (trie.isChildFull()) {
-				// If the root's children match the first character of the string, insert it
-				// into the trie.
-				if (trie.getRoot().getChild()[0].getData() == text.charAt(0)
-						|| trie.getRoot().getChild()[1].getData() == text.charAt(0)) {
-					trie.insert(text);
+		try {
+			for (int i = 0; i < value; i++) {
+				text = in.readLine();
+				if (trie.isChildFull()) {
+					if (trie.getRoot().getChild()[0].getData() == text.charAt(0)
+							|| trie.getRoot().getChild()[1].getData() == text.charAt(0)) {
+						trie.insert(text);
+					} else {
+						trie = new SuffixTrie();
+						return false;
+					}
 				} else {
-					// If the first character of the string doesn't match the existing children,
-					// reset the trie and return false.
-					trie = new SuffixTrie();
-					return false;
+					trie.insert(text);
 				}
-			} else
-				// Insert the string into the trie.
-				trie.insert(text);
+			}
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
 		}
-		return true;
 	}
 }
