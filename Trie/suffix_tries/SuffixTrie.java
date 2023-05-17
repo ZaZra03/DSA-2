@@ -44,8 +44,10 @@ public class SuffixTrie {
 
 	// Class methods
 	public int hashKey(char x) {
-		int key = x - 'a';
-		return key;
+		if (x < 'a' || x > 'z') {
+			throw new IllegalArgumentException("Invalid character: " + x);
+		}
+		return x - 'a';
 	}
 
 	public boolean isChildFull() {
