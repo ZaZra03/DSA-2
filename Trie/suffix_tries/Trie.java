@@ -1,6 +1,7 @@
+package suffix_tries;
 
 /**
- * The SuffixTrie class represents a data structure called a suffix trie. It is
+ * The class represents a data structure called a trie. It is
  * used for efficient storage and retrieval of strings. The class consists of a
  * root node and various methods for manipulating the trie. The insert method
  * allows inserting a string into the trie, while the search method is intended
@@ -8,10 +9,10 @@
  * of a given node. The class also includes helper methods such as hashKey,
  * which generates a hash key for a character, and getters and setters for the
  * root node and a flag indicating if a child node is full. Overall, the
- * SuffixTrie class provides functionality for constructing, inserting,
- * searching, and displaying the contents of a suffix trie.
+ * Trie class provides functionality for constructing, inserting,
+ * searching, and displaying the contents of a trie.
  *
- * @class SuffixTrie
+ * @class Trie
  *
  * @author Eugene Lawrence Autos
  * @author Ezra Micah Malsi
@@ -23,7 +24,7 @@
  * @see Node
  * @see Main
  */
-public class SuffixTrie {
+public class Trie {
 	// Class fields
 	private Node root;
 	private boolean isChildFull = false;
@@ -38,7 +39,7 @@ public class SuffixTrie {
 	}
 
 	// Class constructor
-	public SuffixTrie() {
+	public Trie() {
 		root = new Node();
 	}
 
@@ -59,7 +60,7 @@ public class SuffixTrie {
 	}
 
 	/**
-	 * Inserts a string into the suffix trie.
+	 * Inserts a string into the trie.
 	 *
 	 * @param text The string to be inserted.
 	 */

@@ -1,12 +1,13 @@
+package suffix_tries;
 
 /**
- * The Node class is a fundamental component of the SuffixTrie data structure.
+ * The Node class is a fundamental component of the Trie data structure.
  * It represents a single node within the trie and contains information about
  * the stored character, child nodes, and flags indicating whether the node is
  * empty, representing the last character of a string, or both. The class
  * provides constructors for creating nodes with or without a specified
  * character and supports getter and setter methods for accessing and modifying
- * the node's attributes. Nodes are utilized by the SuffixTrie class to
+ * the node's attributes. Nodes are utilized by the Trie class to
  * construct the trie structure by connecting nodes as children of other nodes.
  *
  * @class Node
@@ -18,7 +19,7 @@
  * @author Mark Cedrick De Vera
  * @author Rizaldy Cantalejo
  * 
- * @see SuffixTrie
+ * @see Trie
  * @see Main
  */
 public class Node {

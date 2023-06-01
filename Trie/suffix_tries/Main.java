@@ -1,13 +1,14 @@
+package suffix_tries;
 
 /**
  * The Main class serves as the entry point and user interface for interacting
- * with the SuffixTrie data structure. It prompts the user to input the number
+ * with the Trie data structure. It prompts the user to input the number
  * of strings to insert into the trie and then allows the user to traverse the
  * trie by selecting child nodes from the root node. The program displays the
  * current path during the traversal and provides options to retry or terminate
  * the program. The initializedTrie method handles the insertion of strings into
  * the trie, checking for compatibility with existing child nodes. Overall, the
- * Main class provides a user-friendly way to create and navigate a suffix trie,
+ * Main class provides a user-friendly way to create and navigate a trie,
  * allowing users to explore and interact with the data structure.
  *
  * @class Main
@@ -20,7 +21,7 @@
  * @author Rizaldy Cantalejo
  * 
  * @see Node
- * @see SuffixTrie
+ * @see Trie
  */
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import java.io.InputStreamReader;
 
 public class Main {
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	static SuffixTrie trie = new SuffixTrie();
+	static Trie trie = new Trie();
 
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		while (true) {
@@ -123,7 +124,7 @@ public class Main {
 	}
 
 	/**
-	 * Initializes the suffix trie by inserting the specified number of strings into
+	 * Initializes the trie by inserting the specified number of strings into
 	 * it. Returns true if the trie is successfully initialized, or false otherwise.
 	 * 
 	 * @param value The number of strings to insert into the trie.
@@ -142,7 +143,7 @@ public class Main {
 							|| trie.getRoot().getChild()[1].getData() == text.charAt(0)) {
 						trie.insert(text);
 					} else {
-						trie = new SuffixTrie();
+						trie = new Trie();
 						return false;
 					}
 				} else {
