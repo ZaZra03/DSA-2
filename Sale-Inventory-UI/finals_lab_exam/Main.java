@@ -49,7 +49,7 @@ public class Main {
 				}
 
 			} catch(Exception e) {
-				System.out.println("Invalid Input. Please try again.\n");
+				System.out.println("Invalid Input. Please try again.");
 			}
 		}
 	}
@@ -68,7 +68,7 @@ public class Main {
 				switch(response) {
 				case 1:
 					DisplayItems(item);
-					break;
+					continue;
 
 				case 2:
 					System.out.print("\nEnter description of the new item: ");
@@ -84,13 +84,12 @@ public class Main {
 					item.addObject(new Item(itemIDCounter, Integer.parseInt(itemPrice), Integer.parseInt(itemStock), itemName));
 					itemIDCounter++;
 					DisplayItems(item);
-					break;
+					continue;
 
 				case 3:
 					Item temp = (Item) item.getArray()[0];
 					if(temp != null) {
 						DisplayItems(item);
-						int size = item.getSize() - item.getCapacity();
 						System.out.print("\nSelect an item by entering its ID: ");
 						String itemID = in.readLine();
 						if(itemID.isBlank()) throw new Exception();
@@ -104,24 +103,18 @@ public class Main {
 						}
 					} else System.out.println("\nNo items available.");
 
-					break;
+					continue;
 
 				case 4:
-					System.out.println("Program will be terminated");
-					for (int i = 0; i < 3; i++) {
-						Thread.sleep(1000);
-						System.out.print(".");
-					}
-					System.out.println("Program terminated.");
-					System.exit(0);
-					break;
+					System.out.println("Going to Main Menu...\n");
+					return;
 
 				default:
 					System.out.println("Invalid choice!\n");
 				}
 
 			} catch(Exception e) {
-				System.out.println("Invalid Input. Please try again.\n");
+				System.out.println("Invalid Input. Please try again.");
 			}
 		}
 	}
@@ -140,23 +133,17 @@ public class Main {
 				switch(response) {
 				case 1:
 					DisplayItems(item);
-					break;
+					continue;
 
 				case 2:
-					break;
+					continue;
 
 				case 3:
-					break;
+					continue;
 
 				case 4:
-					System.out.println("Program will be terminated");
-					for (int i = 0; i < 3; i++) {
-						Thread.sleep(1000);
-						System.out.print(".");
-					}
-					System.out.println("Program terminated.");
-					System.exit(0);
-					break;
+					System.out.println("Going to Main Menu...\n");
+					return;
 
 				default:
 					System.out.println("Invalid choice!\n");
