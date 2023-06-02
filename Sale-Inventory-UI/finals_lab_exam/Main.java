@@ -23,7 +23,6 @@ public class Main {
 				System.out.println("[3] Exit\n");
 				System.out.print(">> ");
 				response = Integer.parseInt(in.readLine());
-				System.out.println();
 
 				switch(response) {
 				case 1:
@@ -57,7 +56,7 @@ public class Main {
 	private static void InventorySystem() throws NumberFormatException, IOException, InterruptedException {
 		while(true) {
 			try {
-				System.out.println("\nSelect an operation you want to use: ");
+				System.out.println("\nSelect which Inventory System operations you want to use: ");
 				System.out.println("[1] Display Items");
 				System.out.println("[2] Add New Item");
 				System.out.println("[3] Replenish Stock");
@@ -92,7 +91,11 @@ public class Main {
 						DisplayItems(item);
 						System.out.print("\nSelect an item by entering its ID: ");
 						String itemID = in.readLine();
-						if(itemID.isBlank()) throw new Exception();
+						if(itemID.isBlank() ) throw new Exception();
+						if(Integer.parseInt(itemID) == 0) {
+							System.out.println("\nItem does not exist.");
+							continue;
+						}
 						Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
 						if(currentItem == null) System.out.println("\nItem does not exist.");
 						else {
@@ -122,7 +125,7 @@ public class Main {
 	private static void SalesSystem() throws NumberFormatException, IOException, InterruptedException {
 		while(true) {
 			try {
-				System.out.println("\nSelect an operation you want to use: ");
+				System.out.println("\nSelect which Sales System operations you want to use: ");
 				System.out.println("[1] Display Items");
 				System.out.println("[2] Transact Order");
 				System.out.println("[3] Generate Report");
@@ -139,32 +142,69 @@ public class Main {
 					Item temp = (Item) item.getArray()[0];
 					if(temp != null) {
 						DisplayItems(item);
-						System.out.println("Transaction ID: " + transactionIDCounter);
+						System.out.println("\nTransaction ID: " + transactionIDCounter);
 						Transaction transaction = new Transaction(transactionIDCounter);
-						Transaction currentTransaction = (Transaction) order.getArray()[transactionIDCounter-1];
-						
-						while(true) {
+						boolean isFinished = false;
+						int total = 0;
+
+						while(!isFinished) {
 							System.out.print("\nEnter Item ID: ");
 							String itemID = in.readLine();
 							if(itemID.isBlank()) throw new Exception();
-							Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
-							if(currentItem == null) System.out.println("\nItem does not exist.");
 							
+							if(Integer.parseInt(itemID) == 0) {
+								System.out.println("\nItem does not exist.");
+								continue;
+							}
+							
+							Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
+							if(currentItem == null) {
+								System.out.println("\nItem does not exist.");
+								continue;
+							} 
+
+							Item tempItem = new Item(currentItem.getItemID(), currentItem.getItemPrice(), currentItem.getItemStock(), currentItem.getItemName());
+							Item tempItem2 = (Item) transaction.getRecord().getArray()[tempItem.getItemID()-1];
+
+							if(tempItem2 != null && tempItem2.getItemID() == tempItem.getItemID()) {
+								System.out.println("The item is already in the list. Select another item.");
+								continue;
+							}
+
 							System.out.print("How many " + currentItem.getItemName() + "? ");
 							String itemSold = in.readLine();
-							int subtotal = currentItem.getItemPrice() * Integer.parseInt(itemSold);
-							System.out.println("Subtotal: ₱ " + subtotal);
 							
-							Item tempItem = new Item(currentItem.getItemID(), currentItem.getItemPrice(), currentItem.getItemStock(), currentItem.getItemName());
+							if(Integer.parseInt(itemSold) > currentItem.getItemStock() || Integer.parseInt(itemSold) <= 0) {
+								System.out.println("Cannot proceed to the transaction. Please try again.");
+								continue;
+							}
+							
 							tempItem.setItemSold(Integer.parseInt(itemSold));
-//							if(tempItem.getItemID() == transaction.getRecord())
+							currentItem.setItemStock(currentItem.getItemStock() - Integer.parseInt(itemSold));
+							int subtotal = currentItem.getItemPrice() * Integer.parseInt(itemSold);
+							System.out.println("Subtotal: Php " + subtotal);
+
 							transaction.getRecord().addObject(tempItem);
+							order.addObject(transaction);
+
+							total += subtotal;
 							System.out.print("Do you wish to add another item y/n? ");
-							String answer = in.readLine();
-							
-							
+							String answer = in.readLine().toUpperCase();
+
+							switch(answer) {
+							case "Y":
+
+								continue;
+							case "N":
+								System.out.println("\nTotal Price: Php " + total);
+								System.out.println("Transaction recorded!");
+								isFinished = true;
+								break;
+							default:
+								System.out.println("Invalid choice!\n");
+							}
 						}
-						
+
 					} else System.out.println("\nNo items available.");
 					continue;
 
@@ -180,23 +220,21 @@ public class Main {
 				}
 
 			} catch(Exception e) {
-				System.out.println("Invalid Input. Please try again.\n");
+				System.out.println("Invalid Input. Please try again.");
 			}
 		}
 	}
 
 	private static void DisplayItems(Array<Item> items) {
-	    if (items.getArray()[0] != null) {
-	    	System.out.println("\nItem ID                    Description                    Price                    Stock");
-	        for (int i = 0; i < items.getSize(); i++) {
-	            if (items.getArray()[i] != null) {
-	                Item currentItem = (Item) items.getArray()[i];
-	                System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
-	                // Access other methods of the Item class using currentItem
-	                // currentItem.someMethod();
-	            }
-	        }
-	    } else System.out.println("\nNo items available.");
+		if (items.getArray()[0] != null) {
+			System.out.println("\nItem ID                    Description                    Price                    Stock");
+			for (int i = 0; i < items.getSize(); i++) {
+				if (items.getArray()[i] != null) {
+					Item currentItem = (Item) items.getArray()[i];
+					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
+				}
+			}
+		} else System.out.println("\nNo items available.");
 	}
 
 }
