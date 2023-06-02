@@ -73,16 +73,37 @@ public class Main {
 				case 2:
 					System.out.print("\nEnter description of the new item: ");
 					String itemName = in.readLine();
+					if(itemName.isBlank()) throw new Exception();
 					System.out.print("Enter price of the new item: ");
-					int itemPrice = Integer.parseInt(in.readLine());
+					String itemPrice = in.readLine();
+					if(itemPrice.isBlank()) throw new Exception();
 					System.out.print("Enter initial stock: ");
-					int itemStock = Integer.parseInt(in.readLine());
+					String itemStock = in.readLine();
+					if(itemStock.isBlank()) throw new Exception();
 					System.out.println("The new item has been added successfully!");
-					item.addObject(new Item(itemIDCounter, itemPrice, itemStock, itemName));
+					item.addObject(new Item(itemIDCounter, Integer.parseInt(itemPrice), Integer.parseInt(itemStock), itemName));
 					itemIDCounter++;
+					DisplayItems(item);
 					break;
 
 				case 3:
+					Item temp = (Item) item.getArray()[0];
+					if(temp != null) {
+						DisplayItems(item);
+						int size = item.getSize() - item.getCapacity();
+						System.out.print("\nSelect an item by entering its ID: ");
+						String itemID = in.readLine();
+						if(itemID.isBlank()) throw new Exception();
+						Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
+						if(currentItem == null) System.out.println("\nItem does not exist.");
+						else {
+							System.out.print("Number of stocks to be added: ");
+							String stocksAdded = in.readLine();
+							currentItem.setItemStock(currentItem.getItemStock() + Integer.parseInt(stocksAdded));
+							System.out.println("Update successful!");
+						}
+					} else System.out.println("\nNo items available.");
+
 					break;
 
 				case 4:
