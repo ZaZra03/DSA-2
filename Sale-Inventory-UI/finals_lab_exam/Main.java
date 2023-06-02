@@ -10,7 +10,7 @@ public class Main {
 	static Array<Order> order = new Array<Order>(10);
 	static int response;
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		// TODO Auto-generated method stub
 
 		while(true) {
@@ -52,10 +52,10 @@ public class Main {
 		}
 	}
 
-	private static void InventorySystem() {
+	private static void InventorySystem() throws NumberFormatException, IOException, InterruptedException {
 		while(true) {
 			try {
-				System.out.println("Select an operation you want to use: ");
+				System.out.println("\nSelect an operation you want to use: ");
 				System.out.println("[1] Display Items");
 				System.out.println("[2] Add New Item");
 				System.out.println("[3] Replenish Stock");
@@ -94,10 +94,10 @@ public class Main {
 		}
 	}
 
-	private static void SalesSystem() {
+	private static void SalesSystem() throws NumberFormatException, IOException, InterruptedException {
 		while(true) {
 			try {
-				System.out.println("Select an operation you want to use: ");
+				System.out.println("\nSelect an operation you want to use: ");
 				System.out.println("[1] Display Items");
 				System.out.println("[2] Transact Order");
 				System.out.println("[3] Generate Report");
@@ -137,7 +137,19 @@ public class Main {
 	}
 	
 	private static void DisplayItems() {
-		
+		System.out.println("\nItem ID                    Description                    Price                    Stock");
+		if(item.getArray()[0] != null) {
+			for(int i = 0; i < item.getSize(); i++) {
+				
+			}
+		}
+	}
+	
+	private static void spaceCalculator(String word) {
+		int space = 20 - word.length();
+		for(int i = 0; i < space; i++) {
+			System.out.print(" ");
+		}
 	}
 
 }

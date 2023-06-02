@@ -2,14 +2,13 @@ package finals_lab_exam;
 
 public class Array<T> {
 	// Class fields
-	private T array[];
+	private Object array[];
 	private int size;
 	private int capacity;
 	
 	// Constructors
-	@SuppressWarnings("unchecked")
 	public Array(int size) {
-		this.array = (T[]) new Object[size];
+		this.setArray(new Object[size]);
 		this.setSize(size);
 		this.setCapacity(size);
 	}
@@ -30,11 +29,22 @@ public class Array<T> {
 		this.size = size;
 	}
 
-	public T[] getArray() {
+	
+	public void increaseCapacity() {
+		Object[] newArray = new Object[size + 10];
+		int index = 0;
+		for (Object value : this.getArray()) {
+			newArray[index] = value;
+			index++;
+		}
+		this.setArray(newArray);
+	}
+
+	public Object[] getArray() {
 		return array;
 	}
 
-	public void setArray(T array[]) {
+	public void setArray(Object array[]) {
 		this.array = array;
 	}
 }
