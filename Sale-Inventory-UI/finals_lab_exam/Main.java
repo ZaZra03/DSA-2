@@ -118,7 +118,7 @@ public class Main {
 
 				switch(response) {
 				case 1:
-					DisplayItems(order);
+					DisplayItems(item);
 					break;
 
 				case 2:
@@ -146,46 +146,19 @@ public class Main {
 			}
 		}
 	}
-	
-//	private static void DisplayItems(Array<?> object) {
-//		System.out.println("\nItem ID                    Description                    Price                    Stock");
-//		if(object.getArray()[0] != null) {
-//			for(int i = 0; i < object.getSize(); i++) {
-//				if(object.getArray()[i] == null) break;
-//				Object o = object.getArray()[i];
-//
-//			}
-//		}
-//	}
-	
-	private static void DisplayItems(Array<?> object) {
-		System.out.println("\nItem ID                    Description                    Price                    Stock");
 
-		for (int i = 0; i < object.getSize(); i++) {
-			if(object.getArray()[i] == null) break;
-			Object item = object.getArray()[i];
-			if (item != null) {
-				if (item instanceof Item) {
-					Item currentItem = (Item) item;
-					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
-					// Access other methods of the Item class using currentItem
-					// currentItem.someMethod();
-				} else if (item instanceof Transaction) {
-					Transaction currentTransaction = (Transaction) item;
-
-					// Access other methods of the Transaction class using currentTransaction
-					// currentTransaction.someMethod();
-				}
-			}
-		}
+	private static void DisplayItems(Array<Item> items) {
+	    if (items.getArray()[0] != null) {
+	    	System.out.println("\nItem ID                    Description                    Price                    Stock");
+	        for (int i = 0; i < items.getSize(); i++) {
+	            if (items.getArray()[i] != null) {
+	                Item currentItem = (Item) items.getArray()[i];
+	                System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
+	                // Access other methods of the Item class using currentItem
+	                // currentItem.someMethod();
+	            }
+	        }
+	    } else System.out.println("\nNo items available.");
 	}
-
-	
-//	private static void spaceCalculator(String word) {
-//		int space = 20 - word.length();
-//		for(int i = 0; i < space; i++) {
-//			System.out.print(" ");
-//		}
-//	}
 
 }
