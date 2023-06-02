@@ -5,6 +5,7 @@ public class Item {
 	private int itemPrice, itemStock;
 	private String itemName;
 	private int itemSold;
+	private int itemTotal;
 	
 	
 	public Item(int itemID, int itemPrice, int itemStock, String itemName) {
@@ -49,5 +50,13 @@ public class Item {
 
 	public void setItemSold(int itemSold) {
 		this.itemSold = itemSold;
+	}
+
+	public int getItemTotal() {
+		return itemTotal;
+	}
+
+	public void setItemTotal(int itemTotal) {
+		this.itemTotal = itemTotal;
 	}
 }

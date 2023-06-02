@@ -180,8 +180,10 @@ public class Main {
 							}
 							
 							tempItem.setItemSold(Integer.parseInt(itemSold));
+							
 							currentItem.setItemStock(currentItem.getItemStock() - Integer.parseInt(itemSold));
 							int subtotal = currentItem.getItemPrice() * Integer.parseInt(itemSold);
+							tempItem.setItemTotal(subtotal);
 							System.out.println("Subtotal: Php " + subtotal);
 
 							transaction.getRecord().addObject(tempItem);
@@ -198,7 +200,9 @@ public class Main {
 							case "N":
 								System.out.println("\nTotal Price: Php " + total);
 								System.out.println("Transaction recorded!");
+								transaction.setTransactionTotal(total);
 								isFinished = true;
+								transactionIDCounter++;
 								break;
 							default:
 								System.out.println("Invalid choice!\n");
@@ -209,6 +213,14 @@ public class Main {
 					continue;
 
 				case 3:
+					if(order.getArray()[0] != null) {
+						for(int i = 0; i < order.getSize(); i++) {
+							if(order.getArray()[i] != null) {
+								Transaction temp1 = (Transaction) order.getArray()[i];
+								temp1.displayRecords();
+							} else break;
+						}
+					} else System.out.println("\nNo transactions available.");
 					continue;
 
 				case 4:
@@ -232,7 +244,7 @@ public class Main {
 				if (items.getArray()[i] != null) {
 					Item currentItem = (Item) items.getArray()[i];
 					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
-				}
+				} else break;
 			}
 		} else System.out.println("\nNo items available.");
 	}
