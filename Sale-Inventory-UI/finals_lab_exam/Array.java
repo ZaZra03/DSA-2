@@ -46,6 +46,8 @@ public class Array<T> {
 			index++;
 		}
 		this.setArray(newArray);
+		this.setSize(this.getSize() + 10);
+		this.setCapacity(this.getCapacity() + 10);
 	}
 
 	public Object[] getArray() {
