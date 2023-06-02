@@ -71,7 +71,7 @@ public class Main {
 					break;
 
 				case 2:
-					System.out.print("Enter description of the new item: ");
+					System.out.print("\nEnter description of the new item: ");
 					String itemName = in.readLine();
 					System.out.print("Enter price of the new item: ");
 					int itemPrice = Integer.parseInt(in.readLine());
@@ -167,7 +167,7 @@ public class Main {
 			if (item != null) {
 				if (item instanceof Item) {
 					Item currentItem = (Item) item;
-					// System.out.printf("%-27s %-30s %-23s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
+					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
 					// Access other methods of the Item class using currentItem
 					// currentItem.someMethod();
 				} else if (item instanceof Transaction) {
