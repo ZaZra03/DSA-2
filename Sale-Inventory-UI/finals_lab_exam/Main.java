@@ -1,5 +1,3 @@
-package finals_lab_exam;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		// TODO Auto-generated method stub
 
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("Select a system you want to use: ");
 				System.out.println("[1] Inventory Module System");
@@ -24,7 +22,7 @@ public class Main {
 				System.out.print(">> ");
 				response = Integer.parseInt(in.readLine());
 
-				switch(response) {
+				switch (response) {
 				case 1:
 					InventorySystem();
 					break;
@@ -47,14 +45,14 @@ public class Main {
 					System.out.println("Invalid choice!\n");
 				}
 
-			} catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("Invalid Input. Please try again.");
 			}
 		}
 	}
 
 	private static void InventorySystem() throws NumberFormatException, IOException, InterruptedException {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("\nSelect which Inventory System operations you want to use: ");
 				System.out.println("[1] Display Items");
@@ -64,7 +62,7 @@ public class Main {
 				System.out.print(">> ");
 				response = Integer.parseInt(in.readLine());
 
-				switch(response) {
+				switch (response) {
 				case 1:
 					DisplayItems(item);
 					continue;
@@ -72,39 +70,73 @@ public class Main {
 				case 2:
 					System.out.print("\nEnter description of the new item: ");
 					String itemName = in.readLine();
-					if(itemName.isBlank()) throw new Exception();
+
+					if (itemName.isBlank()) {
+						throw new Exception();
+					}
+
 					System.out.print("Enter price of the new item: ");
 					String itemPrice = in.readLine();
-					if(itemPrice.isBlank()) throw new Exception();
+
+					if (itemPrice.isBlank()) {
+						throw new Exception();
+					}
+
+					if (!isInteger(itemPrice)) {
+						throw new Exception();
+					}
+
 					System.out.print("Enter initial stock: ");
 					String itemStock = in.readLine();
-					if(itemStock.isBlank()) throw new Exception();
+					if (itemStock.isBlank())
+						throw new Exception();
+
+					if (!isInteger(itemStock)) {
+						throw new Exception();
+					}
+
 					System.out.println("The new item has been added successfully!");
-					item.addObject(new Item(itemIDCounter, Integer.parseInt(itemPrice), Integer.parseInt(itemStock), itemName));
+					item.addObject(new Item(itemIDCounter, Integer.parseInt(itemPrice), Integer.parseInt(itemStock),
+							itemName));
 					itemIDCounter++;
 					DisplayItems(item);
 					continue;
 
 				case 3:
 					Item temp = (Item) item.getArray()[0];
-					if(temp != null) {
+					if (temp != null) {
 						DisplayItems(item);
 						System.out.print("\nSelect an item by entering its ID: ");
 						String itemID = in.readLine();
-						if(itemID.isBlank() ) throw new Exception();
-						if(Integer.parseInt(itemID) == 0) {
+
+						if (itemID.isBlank()) {
+							throw new Exception();
+						}
+
+						if (Integer.parseInt(itemID) == 0) {
 							System.out.println("\nItem does not exist.");
 							continue;
 						}
-						Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
-						if(currentItem == null) System.out.println("\nItem does not exist.");
+
+						if (!isInteger(itemID)) {
+							throw new Exception();
+						}
+
+						Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID) - 1];
+						if (currentItem == null)
+							System.out.println("\nItem does not exist.");
 						else {
 							System.out.print("Number of stocks to be added: ");
 							String stocksAdded = in.readLine();
+
+							if (!isInteger(stocksAdded)) {
+								throw new Exception();
+							}
 							currentItem.setItemStock(currentItem.getItemStock() + Integer.parseInt(stocksAdded));
 							System.out.println("Update successful!");
 						}
-					} else System.out.println("\nNo items available.");
+					} else
+						System.out.println("\nNo items available.");
 
 					continue;
 
@@ -116,14 +148,14 @@ public class Main {
 					System.out.println("Invalid choice!\n");
 				}
 
-			} catch(Exception e) {
-				System.out.println("Invalid Input. Please try again.");
+			} catch (Exception e) {
+				System.out.println("\nInvalid Input. Please try again.");
 			}
 		}
 	}
 
 	private static void SalesSystem() throws NumberFormatException, IOException, InterruptedException {
-		while(true) {
+		while (true) {
 			try {
 				System.out.println("\nSelect which Sales System operations you want to use: ");
 				System.out.println("[1] Display Items");
@@ -133,54 +165,64 @@ public class Main {
 				System.out.print(">> ");
 				response = Integer.parseInt(in.readLine());
 
-				switch(response) {
+				switch (response) {
 				case 1:
 					DisplayItems(item);
 					continue;
 
 				case 2:
 					Item temp = (Item) item.getArray()[0];
-					if(temp != null) {
+					if (temp != null) {
 						DisplayItems(item);
 						System.out.println("\nTransaction ID: " + transactionIDCounter);
 						Transaction transaction = new Transaction(transactionIDCounter);
 						boolean isFinished = false;
 						int total = 0;
 
-						while(!isFinished) {
+						while (!isFinished) {
 							System.out.print("\nEnter Item ID: ");
 							String itemID = in.readLine();
-							if(itemID.isBlank()) throw new Exception();
-							
-							if(Integer.parseInt(itemID) == 0) {
-								System.out.println("\nItem does not exist.");
-								continue;
+							if (itemID.isBlank()) {
+								throw new Exception();
 							}
-							
-							Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
-							if(currentItem == null) {
-								System.out.println("\nItem does not exist.");
-								continue;
-							} 
 
-							Item tempItem = new Item(currentItem.getItemID(), currentItem.getItemPrice(), currentItem.getItemStock(), currentItem.getItemName());
-							Item tempItem2 = (Item) transaction.getRecord().getArray()[tempItem.getItemID()-1];
+							if (Integer.parseInt(itemID) == 0) {
+								throw new Exception();
+							}
 
-							if(tempItem2 != null && tempItem2.getItemID() == tempItem.getItemID()) {
+							if (!isInteger(itemID)) {
+								throw new Exception();
+							}
+
+							Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID) - 1];
+							if (currentItem == null) {
+								throw new Exception();
+							}
+
+							Item tempItem = new Item(currentItem.getItemID(), currentItem.getItemPrice(),
+									currentItem.getItemStock(), currentItem.getItemName());
+							Item tempItem2 = (Item) transaction.getRecord().getArray()[tempItem.getItemID() - 1];
+
+							if (tempItem2 != null && tempItem2.getItemID() == tempItem.getItemID()) {
 								System.out.println("The item is already in the list. Select another item.");
-								continue;
+								break;
 							}
 
 							System.out.print("How many " + currentItem.getItemName() + "? ");
 							String itemSold = in.readLine();
-							
-							if(Integer.parseInt(itemSold) > currentItem.getItemStock() || Integer.parseInt(itemSold) <= 0) {
-								System.out.println("Cannot proceed to the transaction. Please try again.");
-								continue;
+
+							if (!isInteger(itemSold)) {
+								throw new Exception();
 							}
-							
+
+							if (Integer.parseInt(itemSold) > currentItem.getItemStock()
+									|| Integer.parseInt(itemSold) <= 0) {
+								System.out.println("Cannot proceed to the transaction. Please try again.");
+								break;
+							}
+
 							tempItem.setItemSold(Integer.parseInt(itemSold));
-							
+
 							currentItem.setItemStock(currentItem.getItemStock() - Integer.parseInt(itemSold));
 							int subtotal = currentItem.getItemPrice() * Integer.parseInt(itemSold);
 							tempItem.setItemTotal(subtotal);
@@ -193,7 +235,7 @@ public class Main {
 							System.out.print("Do you wish to add another item y/n? ");
 							String answer = in.readLine().toUpperCase();
 
-							switch(answer) {
+							switch (answer) {
 							case "Y":
 
 								continue;
@@ -209,18 +251,21 @@ public class Main {
 							}
 						}
 
-					} else System.out.println("\nNo items available.");
+					} else
+						System.out.println("\nNo items available.");
 					continue;
 
 				case 3:
-					if(order.getArray()[0] != null) {
-						for(int i = 0; i < order.getSize(); i++) {
-							if(order.getArray()[i] != null) {
+					if (order.getArray()[0] != null) {
+						for (int i = 0; i < order.getSize(); i++) {
+							if (order.getArray()[i] != null) {
 								Transaction temp1 = (Transaction) order.getArray()[i];
 								temp1.displayRecords();
-							} else break;
+							} else
+								break;
 						}
-					} else System.out.println("\nNo transactions available.");
+					} else
+						System.out.println("\nNo transactions available.");
 					continue;
 
 				case 4:
@@ -231,7 +276,7 @@ public class Main {
 					System.out.println("Invalid choice!\n");
 				}
 
-			} catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("Invalid Input. Please try again.");
 			}
 		}
@@ -239,14 +284,27 @@ public class Main {
 
 	private static void DisplayItems(Array<Item> items) {
 		if (items.getArray()[0] != null) {
-			System.out.println("\nItem ID                    Description                    Price                    Stock");
+			System.out.println(
+					"\nItem ID                    Description                    Price                    Stock");
 			for (int i = 0; i < items.getSize(); i++) {
 				if (items.getArray()[i] != null) {
 					Item currentItem = (Item) items.getArray()[i];
-					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
-				} else break;
+					System.out.printf("%-26s %-30s %-24s %s%n", currentItem.getItemID(), currentItem.getItemName(),
+							currentItem.getItemPrice(), currentItem.getItemStock());
+				} else
+					break;
 			}
-		} else System.out.println("\nNo items available.");
+		} else
+			System.out.println("\nNo items available.");
+	}
+
+	private static boolean isInteger(String string) {
+		try {
+			Integer.parseInt(string);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 }
