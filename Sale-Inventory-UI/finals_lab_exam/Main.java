@@ -181,11 +181,11 @@ public class Main {
 	}
 
 	
-	private static void spaceCalculator(String word) {
-		int space = 20 - word.length();
-		for(int i = 0; i < space; i++) {
-			System.out.print(" ");
-		}
-	}
+//	private static void spaceCalculator(String word) {
+//		int space = 20 - word.length();
+//		for(int i = 0; i < space; i++) {
+//			System.out.print(" ");
+//		}
+//	}
 
 }
