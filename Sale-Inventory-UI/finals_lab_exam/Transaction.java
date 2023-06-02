@@ -18,15 +18,18 @@ public class Transaction {
 	}
 	
 	public void displayRecords() {
-		System.out.println("Transaction ID: " + transactionID);
-		for(int i = 0; i < record.getSize(); i++) {
-			if(record.getArray()[i] != null) {
-				Item currentItem = (Item) record.getArray()[i];
-				System.out.printf("%-10s %-1s x %-5s  %-1s %s%n", currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemSold(), currentItem.getItemTotal());
-			} else break;
-		}
-		System.out.println("Total: " + this.transactionTotal);
+	    System.out.println("\nTransaction ID: " + transactionID);
+	    for (int i = 0; i < record.getSize(); i++) {
+	        if (record.getArray()[i] != null) {
+	            Item currentItem = (Item) record.getArray()[i];
+	            System.out.printf("%-10s %-1s x %-5s   Php %-1s%n", currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemSold(), currentItem.getItemTotal());
+	        } else {
+	            break;
+	        }
+	    }
+	    System.out.println("Total: Php " + this.transactionTotal);
 	}
+
 
 	public int getTransactionTotal() {
 		return transactionTotal;
