@@ -32,7 +32,7 @@ public class Array<T> {
 
 	
 	public void addObject(Object object) {
-		if (capacity == capacity - size + 1)
+		if (capacity == 0)
 			increaseCapacity();
 		array[size - capacity] = object;
 		capacity--;
