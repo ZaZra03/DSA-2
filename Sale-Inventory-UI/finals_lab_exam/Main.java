@@ -7,8 +7,10 @@ import java.io.InputStreamReader;
 public class Main {
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	static Array<Item> item = new Array<Item>(10);
-	static Array<Order> order = new Array<Order>(10);
+	static Array<Transaction> order = new Array<Transaction>(10);
 	static int response;
+	static int itemIDCounter = 1;
+	static int transactionIDCounter = 1;
 
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		// TODO Auto-generated method stub
@@ -65,10 +67,19 @@ public class Main {
 
 				switch(response) {
 				case 1:
-					DisplayItems();
+					DisplayItems(item);
 					break;
 
 				case 2:
+					System.out.print("Enter description of the new item: ");
+					String itemName = in.readLine();
+					System.out.print("Enter price of the new item: ");
+					int itemPrice = Integer.parseInt(in.readLine());
+					System.out.print("Enter initial stock: ");
+					int itemStock = Integer.parseInt(in.readLine());
+					System.out.println("The new item has been added successfully!");
+					item.addObject(new Item(itemIDCounter, itemPrice, itemStock, itemName));
+					itemIDCounter++;
 					break;
 
 				case 3:
@@ -107,7 +118,7 @@ public class Main {
 
 				switch(response) {
 				case 1:
-					DisplayItems();
+					DisplayItems(order);
 					break;
 
 				case 2:
@@ -136,14 +147,39 @@ public class Main {
 		}
 	}
 	
-	private static void DisplayItems() {
+//	private static void DisplayItems(Array<?> object) {
+//		System.out.println("\nItem ID                    Description                    Price                    Stock");
+//		if(object.getArray()[0] != null) {
+//			for(int i = 0; i < object.getSize(); i++) {
+//				if(object.getArray()[i] == null) break;
+//				Object o = object.getArray()[i];
+//
+//			}
+//		}
+//	}
+	
+	private static void DisplayItems(Array<?> object) {
 		System.out.println("\nItem ID                    Description                    Price                    Stock");
-		if(item.getArray()[0] != null) {
-			for(int i = 0; i < item.getSize(); i++) {
-				
+
+		for (int i = 0; i < object.getSize(); i++) {
+			if(object.getArray()[i] == null) break;
+			Object item = object.getArray()[i];
+			if (item != null) {
+				if (item instanceof Item) {
+					Item currentItem = (Item) item;
+					// System.out.printf("%-27s %-30s %-23s %s%n", currentItem.getItemID(), currentItem.getItemName(), currentItem.getItemPrice(), currentItem.getItemStock());
+					// Access other methods of the Item class using currentItem
+					// currentItem.someMethod();
+				} else if (item instanceof Transaction) {
+					Transaction currentTransaction = (Transaction) item;
+
+					// Access other methods of the Transaction class using currentTransaction
+					// currentTransaction.someMethod();
+				}
 			}
 		}
 	}
+
 	
 	private static void spaceCalculator(String word) {
 		int space = 20 - word.length();

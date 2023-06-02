@@ -6,6 +6,7 @@ public class Array<T> {
 	private int size;
 	private int capacity;
 	
+	
 	// Constructors
 	public Array(int size) {
 		this.setArray(new Object[size]);
@@ -29,6 +30,13 @@ public class Array<T> {
 		this.size = size;
 	}
 
+	
+	public void addObject(Object object) {
+		if (capacity == capacity - size + 1)
+			increaseCapacity();
+		array[size - capacity] = object;
+		capacity--;
+	}
 	
 	public void increaseCapacity() {
 		Object[] newArray = new Object[size + 10];
