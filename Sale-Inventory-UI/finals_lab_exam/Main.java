@@ -136,6 +136,36 @@ public class Main {
 					continue;
 
 				case 2:
+					Item temp = (Item) item.getArray()[0];
+					if(temp != null) {
+						DisplayItems(item);
+						System.out.println("Transaction ID: " + transactionIDCounter);
+						Transaction transaction = new Transaction(transactionIDCounter);
+						Transaction currentTransaction = (Transaction) order.getArray()[transactionIDCounter-1];
+						
+						while(true) {
+							System.out.print("\nEnter Item ID: ");
+							String itemID = in.readLine();
+							if(itemID.isBlank()) throw new Exception();
+							Item currentItem = (Item) item.getArray()[Integer.parseInt(itemID)-1];
+							if(currentItem == null) System.out.println("\nItem does not exist.");
+							
+							System.out.print("How many " + currentItem.getItemName() + "? ");
+							String itemSold = in.readLine();
+							int subtotal = currentItem.getItemPrice() * Integer.parseInt(itemSold);
+							System.out.println("Subtotal: ₱ " + subtotal);
+							
+							Item tempItem = new Item(currentItem.getItemID(), currentItem.getItemPrice(), currentItem.getItemStock(), currentItem.getItemName());
+							tempItem.setItemSold(Integer.parseInt(itemSold));
+//							if(tempItem.getItemID() == transaction.getRecord())
+							transaction.getRecord().addObject(tempItem);
+							System.out.print("Do you wish to add another item y/n? ");
+							String answer = in.readLine();
+							
+							
+						}
+						
+					} else System.out.println("\nNo items available.");
 					continue;
 
 				case 3:

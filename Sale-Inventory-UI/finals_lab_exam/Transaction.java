@@ -7,4 +7,12 @@ public class Transaction {
 	public Transaction(int transactionID) {
 		this.transactionID = transactionID;
 	}
+
+	public Array<Item> getRecord() {
+		return record;
+	}
+
+	public void setRecord(Array<Item> record) {
+		this.record = record;
+	}
 }
